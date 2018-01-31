@@ -13,12 +13,7 @@ app.use('/', express.static(__dirname));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-var sslOptions = {
-  key: fs.readFileSync('key.pem'),
-  cert: fs.readFileSync('cert.pem'),
-  passphrase: 'crayon'
-};
-var httpsServer = https.createServer(sslOptions, app);
+
 // Additional middleware which will set headers that we need on each request.
 app.use(function(req, res, next) {
     // Set permissive CORS header - this allows this server to be used only as
@@ -165,6 +160,6 @@ app.delete('/api/pto/delete/:id', function(req, res) {
 });
 
 
-httpsServer.listen(app.get('port'), function() {
+app.listen(app.get('port'), function() {
     console.log('Server started: https://localhost:' + app.get('port') + '/');
 });
