@@ -1,0 +1,228 @@
+var fs = require('fs');
+var path = require('path');
+var express = require('express');
+var bodyParser = require('body-parser');
+var request = require("request");
+
+var app = express();
+
+var PTO_FILE = path.join(__dirname, 'src/assets/js/components/pto-data.json');
+
+app.set('port', (process.env.PORT || 3000));
+
+app.use('/', express.static(__dirname));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+
+// Additional middleware which will set headers that we need on each request.
+app.use(function(req, res, next) {
+    // Set permissive CORS header - this allows this server to be used only as
+    // an API server in conjunction with something like webpack-dev-server.
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,PATCH,POST,DELETE');
+
+    // Disable caching so we'll always get the latest comments.
+    res.setHeader('Cache-Control', 'no-cache');
+    next();
+});
+var GET_PTO_OPTIONS = {
+    method: 'GET',
+    url: 'https://cjrwpto-767a.restdb.io/rest/pto',
+    headers:
+    {   'cache-control': 'no-cache',
+        'x-apikey': 'f748dba8e3fb47f8f2687ffadf548877afc5e',
+        'content-type': 'application/json' },
+
+    json: true
+};
+
+var POST_PTO_OPTIONS = {
+    method: 'POST',
+    url: 'https://cjrwpto-767a.restdb.io/rest/pto',
+    headers:
+    {   'cache-control': 'no-cache',
+        'x-apikey': 'f748dba8e3fb47f8f2687ffadf548877afc5e',
+        'content-type': 'application/json' },
+
+    json: true
+};
+
+var PUT_PTO_OPTIONS = {
+    method: 'PUT',
+    url: 'https://cjrwpto-767a.restdb.io/rest/pto',
+    headers:
+    {   'cache-control': 'no-cache',
+        'x-apikey': 'f748dba8e3fb47f8f2687ffadf548877afc5e',
+        'content-type': 'application/json' },
+
+    json: true
+};
+var DELETE_PTO_OPTIONS = {
+    method: 'DELETE',
+    url: 'https://cjrwpto-767a.restdb.io/rest/pto',
+    headers:
+    {   'cache-control': 'no-cache',
+        'x-apikey': 'f748dba8e3fb47f8f2687ffadf548877afc5e',
+        'content-type': 'application/json' },
+
+    json: true
+};
+app.get('/api/pto', function(req, res) {
+    var options = JSON.parse(JSON.stringify(GET_PTO_OPTIONS));
+    request.get(options, function (error, response, body) {
+        if (error) {
+            console.error(error);
+            process.exit(1);
+        }
+        res.json(body);
+    });
+});
+
+app.get('/api/pto/calendar', function(req, res) {
+    var options = JSON.parse(JSON.stringify(GET_PTO_OPTIONS));
+    request.get(options, function (error, response, body) {
+        if (error) {
+            console.error(error);
+            process.exit(1);
+        }
+        var events = [];
+        for(var i = 0; i < body.length; i++){
+            events.push({id: i + 1, title: body[i]['name'], class: 'panel-danger', start: new Date(body[i]['date_start']), end: new Date(body[i]['date_end']) })
+        }
+        res.json(events);
+    });
+    // fs.readFile(PTO_FILE, function(err, data) {
+    //     if (err) {
+    //         console.error(err);
+    //         process.exit(1);
+    //     }
+    //     var events = [];
+    //     var d = JSON.parse(data);
+    //     for(var i = 0; i < d.length; i++){
+    //         events.push({id: i + 1, title: d[i]['name'], class: 'panel-danger', start: new Date(d[i]['date_start']), end: new Date(d[i]['date_end']) });
+    //     }
+    //     res.json(events);
+    // });
+});
+
+app.get('/api/pto/:id', function(req, res) {
+    var options = JSON.parse(JSON.stringify(GET_PTO_OPTIONS));
+    options.url += '/' + req.params.id;
+    request.get(options, function (error, response, body) {
+        if (error) {
+            console.error(error);
+            process.exit(1);
+        }
+        console.log(body);
+        res.json(body);
+    });
+});
+
+app.post('/api/pto/create', function(req, res) {
+    var options = JSON.parse(JSON.stringify(POST_PTO_OPTIONS));
+    options.body = {
+        'name': req.body.name,
+        'date_start': req.body.date_start,
+        'date_end': req.body.date_end
+    };
+    request(options, function (error, response, body) {
+        if (error) {
+            console.error(error);
+            process.exit(1);
+        }
+        res.json(body);
+    });
+});
+
+
+
+
+app.patch('/api/pto/edit/:id', function(req, res) {
+    var options = JSON.parse(JSON.stringify(PUT_PTO_OPTIONS));
+    options.body = {
+        'name': req.body.name,
+        'date_start': req.body.date_start,
+        'date_end': req.body.date_end
+    };
+    options.url += '/' + req.params.id;
+    request(options, function (error, response, body) {
+        if (error) {
+            console.error(error);
+            process.exit(1);
+        }
+
+        res.json(body);
+    });
+    // fs.readFile(PTO_FILE, function(err, data) {
+    //     if (err) {
+    //         console.error(err);
+    //         process.exit(1);
+    //     }
+    //     var ptos = JSON.parse(data);
+    //
+    //     for(var i = 0; i <= ptos.length; i++)
+    //     {
+    //         if(ptos[i]['id'] == req.params.id)
+    //         {
+    //             var pto = ptos[i];
+    //             pto.name = req.body.name;
+    //             pto.date_start = req.body.date_start;
+    //             pto.date_end = req.body.date_end;
+    //             ptos.splice(i, 1);
+    //             ptos.push(pto);
+    //
+    //             fs.writeFile(PTO_FILE, JSON.stringify(ptos, null, 4), function(err) {
+    //                 if (err) {
+    //                     console.error(err);
+    //                     process.exit(1);
+    //                 }
+    //                 res.json(ptos);
+    //             });
+    //             break;
+    //         }
+    //     }
+    // });
+});
+
+app.delete('/api/pto/delete/:id', function(req, res) {
+
+    var options = JSON.parse(JSON.stringify(DELETE_PTO_OPTIONS));
+    options.url += '/' + req.params.id;
+    request(options, function (error, response, body) {
+        if (error) {
+            console.error(error);
+            process.exit(1);
+        }
+        res.json(body);
+    });
+    // fs.readFile(PTO_FILE, function(err, data) {
+    //     if (err) {
+    //         console.error(err);
+    //         process.exit(1);
+    //     }
+    //     var ptos = JSON.parse(data);
+    //
+    //     for(var i = 0; i <= ptos.length; i++)
+    //     {
+    //         if(ptos[i]['id'] == req.params.id)
+    //         {
+    //             ptos.splice(i, 1);
+    //
+    //             fs.writeFile(PTO_FILE, JSON.stringify(ptos, null, 4), function(err) {
+    //                 if (err) {
+    //                     console.error(err);
+    //                     process.exit(1);
+    //                 }
+    //                 res.json(ptos);
+    //             });
+    //             break;
+    //         }
+    //     }
+    // });
+});
+
+
+app.listen(app.get('port'), function() {
+    console.log('Server started: http://localhost:' + app.get('port') + '/');
+});
