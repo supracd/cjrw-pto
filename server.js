@@ -160,5 +160,5 @@ app.delete('/api/pto/delete/:id', function(req, res) {
 
 
 app.listen(app.get('port'), function() {
-    console.log('Server started: http://localhost:' + app.get('port') + '/');
+    console.log('Server started: https://localhost:' + app.get('port') + '/');
 });

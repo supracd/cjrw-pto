@@ -30,7 +30,7 @@
         methods: {
             getPto: function()
             {
-                this.$http.get(`http://localhost:${window.port}/api/pto/` + this.$route.params.id).then((response) => {
+                this.$http.get(`https://localhost:${window.port}/api/pto/` + this.$route.params.id).then((response) => {
                     this.pto = response.body;
                 }, (response) => {
 
@@ -39,7 +39,7 @@
 
             deletePto: function()
             {
-                this.$http.delete(`http://localhost:${window.port}/api/pto/delete/` + this.$route.params.id, this.pto, {
+                this.$http.delete(`https://localhost:${window.port}/api/pto/delete/` + this.$route.params.id, this.pto, {
                     headers : {
                         'Content-Type' : 'application/json'
                     }
