@@ -8,8 +8,8 @@ var app = express();
 
 var PTO_FILE = path.join(__dirname, 'src/assets/js/components/pto-data.json');
 
-app.set('port', (process.env.PORT || 3000));
-
+//app.set('port', (process.env.PORT || 3000));
+app.set('port', 3000);
 app.use('/', express.static(__dirname));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -92,18 +92,6 @@ app.get('/api/pto/calendar', function(req, res) {
         }
         res.json(events);
     });
-    // fs.readFile(PTO_FILE, function(err, data) {
-    //     if (err) {
-    //         console.error(err);
-    //         process.exit(1);
-    //     }
-    //     var events = [];
-    //     var d = JSON.parse(data);
-    //     for(var i = 0; i < d.length; i++){
-    //         events.push({id: i + 1, title: d[i]['name'], class: 'panel-danger', start: new Date(d[i]['date_start']), end: new Date(d[i]['date_end']) });
-    //     }
-    //     res.json(events);
-    // });
 });
 
 app.get('/api/pto/:id', function(req, res) {
@@ -154,35 +142,7 @@ app.patch('/api/pto/edit/:id', function(req, res) {
 
         res.json(body);
     });
-    // fs.readFile(PTO_FILE, function(err, data) {
-    //     if (err) {
-    //         console.error(err);
-    //         process.exit(1);
-    //     }
-    //     var ptos = JSON.parse(data);
-    //
-    //     for(var i = 0; i <= ptos.length; i++)
-    //     {
-    //         if(ptos[i]['id'] == req.params.id)
-    //         {
-    //             var pto = ptos[i];
-    //             pto.name = req.body.name;
-    //             pto.date_start = req.body.date_start;
-    //             pto.date_end = req.body.date_end;
-    //             ptos.splice(i, 1);
-    //             ptos.push(pto);
-    //
-    //             fs.writeFile(PTO_FILE, JSON.stringify(ptos, null, 4), function(err) {
-    //                 if (err) {
-    //                     console.error(err);
-    //                     process.exit(1);
-    //                 }
-    //                 res.json(ptos);
-    //             });
-    //             break;
-    //         }
-    //     }
-    // });
+
 });
 
 app.delete('/api/pto/delete/:id', function(req, res) {
@@ -196,30 +156,7 @@ app.delete('/api/pto/delete/:id', function(req, res) {
         }
         res.json(body);
     });
-    // fs.readFile(PTO_FILE, function(err, data) {
-    //     if (err) {
-    //         console.error(err);
-    //         process.exit(1);
-    //     }
-    //     var ptos = JSON.parse(data);
-    //
-    //     for(var i = 0; i <= ptos.length; i++)
-    //     {
-    //         if(ptos[i]['id'] == req.params.id)
-    //         {
-    //             ptos.splice(i, 1);
-    //
-    //             fs.writeFile(PTO_FILE, JSON.stringify(ptos, null, 4), function(err) {
-    //                 if (err) {
-    //                     console.error(err);
-    //                     process.exit(1);
-    //                 }
-    //                 res.json(ptos);
-    //             });
-    //             break;
-    //         }
-    //     }
-    // });
+
 });
 
 
