@@ -3,7 +3,7 @@ var path = require('path');
 var express = require('express');
 var bodyParser = require('body-parser');
 var request = require("request");
-
+var https = require('https');
 var app = express();
 
 //var PTO_FILE = path.join(__dirname, 'src/assets/js/components/pto-data.json');
@@ -13,6 +13,12 @@ app.use('/', express.static(__dirname));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+var sslOptions = {
+  key: fs.readFileSync('key.pem'),
+  cert: fs.readFileSync('cert.pem'),
+  passphrase: 'crayon'
+};
+var httpsServer = https.createServer(sslOptions, app);
 // Additional middleware which will set headers that we need on each request.
 app.use(function(req, res, next) {
     // Set permissive CORS header - this allows this server to be used only as
@@ -159,6 +165,6 @@ app.delete('/api/pto/delete/:id', function(req, res) {
 });
 
 
-app.listen(app.get('port'), function() {
+httpsServer.listen(app.get('port'), function() {
     console.log('Server started: https://localhost:' + app.get('port') + '/');
 });
