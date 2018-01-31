@@ -32948,13 +32948,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         fetchPtoData: function () {
-            this.$http.get(`https://localhost:${window.port}/api/pto`).then(response => {
+            this.$http.get(`https://localhost:${window.port}/api/pto/`).then(response => {
                 this.ptos = response.body;
                 this.originalPtos = this.ptos;
             }, response => {});
         },
         deletePto: function (pto) {
-            this.$http.delete(`https://localhost:${window.port}/api/pto/delete/` + pto._id, pto, {
+            this.$http.delete(`https://localhost:${window.port}/api/pto/delete/${pto._id}/`, pto, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -33289,7 +33289,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         getPto: function () {
-            this.$http.get(`https://localhost:${window.port}/api/pto/` + this.$route.params.id).then(response => {
+            this.$http.get(`https://localhost:${window.port}/api/pto/${this.$route.params.id}/`).then(response => {
                 this.pto = response.body;
             }, response => {});
             return this.pto;
@@ -33308,7 +33308,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.pto.date_start = date_start;
                 this.pto.date_end = date_end;
             }
-            this.$http.patch(`https://localhost:${window.port}/api/pto/edit/` + this.$route.params.id, this.pto, {
+            this.$http.patch(`https://localhost:${window.port}/api/pto/edit/${this.$route.params.id}/`, this.pto, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -33439,8 +33439,7 @@ const routes = [{
 
 });
 var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({ routes: routes, mode: 'history' });
-var v = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a(__WEBPACK_IMPORTED_MODULE_0_vue___default.a.util.extend({ router }, __WEBPACK_IMPORTED_MODULE_4__App_vue___default.a)).$mount('#app');
-v.http.options.port = __webpack_require__.i({"NODE_ENV":"production"}).PORT;
+new __WEBPACK_IMPORTED_MODULE_0_vue___default.a(__WEBPACK_IMPORTED_MODULE_0_vue___default.a.util.extend({ router }, __WEBPACK_IMPORTED_MODULE_4__App_vue___default.a)).$mount('#app');
 
 /***/ }),
 /* 146 */

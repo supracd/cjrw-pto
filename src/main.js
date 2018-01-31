@@ -66,5 +66,4 @@ export default (context) => {
 
 }
 var router = new VueRouter({ routes: routes, mode: 'history' });
-var v = new Vue(Vue.util.extend({ router }, App)).$mount('#app');
-v.http.options.port = process.env.PORT;
+new Vue(Vue.util.extend({ router }, App)).$mount('#app');
