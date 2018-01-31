@@ -32948,6 +32948,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         fetchPtoData: function () {
+            console.log(`http://localhost:${window.port}/api/pto/`);
             this.$http.get(`http://localhost:${window.port}/api/pto/`).then(response => {
                 this.ptos = response.body;
                 this.originalPtos = this.ptos;
