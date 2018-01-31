@@ -32948,13 +32948,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         fetchPtoData: function () {
-            this.$http.get('http://localhost:3000/api/pto').then(response => {
+            this.$http.get(`https://localhost:${window.port}/api/pto`).then(response => {
                 this.ptos = response.body;
                 this.originalPtos = this.ptos;
             }, response => {});
         },
         deletePto: function (pto) {
-            this.$http.delete('http://localhost:3000/api/pto/delete/' + pto._id, pto, {
+            this.$http.delete(`https://localhost:${window.port}/api/pto/delete/` + pto._id, pto, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -33033,7 +33033,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             // Do something...
         },
         fetchPtoData: function () {
-            this.$http.get('http://localhost:3000/api/pto/calendar').then(response => {
+            console.log(this);
+            this.$http.get(`https://localhost:${window.port}/api/pto/calendar`).then(response => {
                 this.events = response.body;
             }, response => {});
         }
@@ -33128,7 +33129,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.pto.date_end = date_end;
             }
 
-            this.$http.post('http://localhost:3000/api/pto/create', this.pto, {
+            this.$http.post(`https://localhost:${window.port}/api/pto/create`, this.pto, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -33191,13 +33192,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         getPto: function () {
-            this.$http.get('http://localhost:3000/api/pto/' + this.$route.params.id).then(response => {
+            this.$http.get(`https://localhost:${window.port}/api/pto/` + this.$route.params.id).then(response => {
                 this.pto = response.body;
             }, response => {});
         },
 
         deletePto: function () {
-            this.$http.delete('http://localhost:3000/api/pto/delete/' + this.$route.params.id, this.pto, {
+            this.$http.delete(`https://localhost:${window.port}/api/pto/delete/` + this.$route.params.id, this.pto, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -33288,9 +33289,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         getPto: function () {
-            this.$http.get('http://localhost:3000/api/pto/' + this.$route.params.id).then(response => {
+            this.$http.get(`https://localhost:${window.port}/api/pto/` + this.$route.params.id).then(response => {
                 this.pto = response.body;
-                console.log(response.body);
             }, response => {});
             return this.pto;
         },
@@ -33308,7 +33308,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.pto.date_start = date_start;
                 this.pto.date_end = date_end;
             }
-            this.$http.patch('http://localhost:3000/api/pto/edit/' + this.$route.params.id, this.pto, {
+            this.$http.patch(`https://localhost:${window.port}/api/pto/edit/` + this.$route.params.id, this.pto, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -33404,6 +33404,12 @@ const EditPto = __webpack_require__(130);
 const DeletePto = __webpack_require__(129);
 const PtoCalendar = __webpack_require__(127);
 
+if (true) {
+    window.port = __webpack_require__.i({"NODE_ENV":"production"}).PORT;
+} else {
+    window.port = '3000';
+}
+
 const routes = [{
     name: 'all_pto',
     path: '/',
@@ -33425,8 +33431,16 @@ const routes = [{
     path: '/calendar',
     component: PtoCalendar
 }];
+
+/* harmony default export */ __webpack_exports__["default"] = (context => {
+
+    // access drupalBaseUrl from our templates
+
+
+});
 var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({ routes: routes, mode: 'history' });
-new __WEBPACK_IMPORTED_MODULE_0_vue___default.a(__WEBPACK_IMPORTED_MODULE_0_vue___default.a.util.extend({ router }, __WEBPACK_IMPORTED_MODULE_4__App_vue___default.a)).$mount('#app');
+var v = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a(__WEBPACK_IMPORTED_MODULE_0_vue___default.a.util.extend({ router }, __WEBPACK_IMPORTED_MODULE_4__App_vue___default.a)).$mount('#app');
+v.http.options.port = __webpack_require__.i({"NODE_ENV":"production"}).PORT;
 
 /***/ }),
 /* 146 */
