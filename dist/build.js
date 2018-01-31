@@ -32948,13 +32948,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         fetchPtoData: function () {
-            this.$http.get(`https://localhost:${window.port}/api/pto/`).then(response => {
+            this.$http.get(`http://localhost:${window.port}/api/pto/`).then(response => {
                 this.ptos = response.body;
                 this.originalPtos = this.ptos;
             }, response => {});
         },
         deletePto: function (pto) {
-            this.$http.delete(`https://localhost:${window.port}/api/pto/delete/${pto._id}/`, pto, {
+            this.$http.delete(`http://localhost:${window.port}/api/pto/delete/${pto._id}/`, pto, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
