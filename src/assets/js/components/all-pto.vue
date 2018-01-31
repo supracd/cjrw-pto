@@ -51,12 +51,13 @@
         created: function()
         {
             this.fetchPtoData();
+
         },
 
         methods: {
             fetchPtoData: function()
             {
-                this.$http.get('http://localhost:3000/api/pto').then((response) => {
+                this.$http.get(`http://localhost:${window.port}/api/pto`).then((response) => {
                     this.ptos = response.body;
                     this.originalPtos = this.ptos;
                 }, (response) => {
@@ -65,7 +66,7 @@
             },
             deletePto: function(pto)
             {
-                this.$http.delete('http://localhost:3000/api/pto/delete/' + pto._id, pto, {
+                this.$http.delete(`http://localhost:${window.port}/api/pto/delete/` + pto._id, pto, {
                     headers : {
                         'Content-Type' : 'application/json'
                     }

@@ -6,10 +6,9 @@ var request = require("request");
 
 var app = express();
 
-var PTO_FILE = path.join(__dirname, 'src/assets/js/components/pto-data.json');
+//var PTO_FILE = path.join(__dirname, 'src/assets/js/components/pto-data.json');
 
-//app.set('port', (process.env.PORT || 3000));
-app.set('port', 3000);
+app.set('port', (process.env.PORT || 3000));
 app.use('/', express.static(__dirname));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));

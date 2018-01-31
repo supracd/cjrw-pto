@@ -24,7 +24,11 @@ const EditPto = require('./assets/js/components/edit-pto.vue');
 const DeletePto = require('./assets/js/components/delete-pto.vue');
 const PtoCalendar = require('./assets/js/components/calendar.vue');
 
-
+if (process.env.NODE_ENV === 'production') {
+    window.port = process.env.PORT;
+} else {
+    window.port = '3000';
+}
 
 
 const routes = [
@@ -54,5 +58,13 @@ const routes = [
         component: PtoCalendar,
     }
 ];
+
+export default (context) => {
+
+  // access drupalBaseUrl from our templates
+
+
+}
 var router = new VueRouter({ routes: routes, mode: 'history' });
-new Vue(Vue.util.extend({ router }, App)).$mount('#app');
+var v = new Vue(Vue.util.extend({ router }, App)).$mount('#app');
+v.http.options.port = process.env.PORT;

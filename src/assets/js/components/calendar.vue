@@ -43,7 +43,8 @@
           },
             fetchPtoData: function()
             {
-                this.$http.get('http://localhost:3000/api/pto/calendar').then((response) => {
+                console.log(this);
+                this.$http.get(`http://localhost:${window.port}/api/pto/calendar`).then((response) => {
                     this.events = response.body;
 
                 }, (response) => {
