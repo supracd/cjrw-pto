@@ -10,7 +10,7 @@
 
 <style>
     .fade-enter-active, .fade-leave-active {
-      transition: opacity .25s height .5s;
+      transition: opacity .5s height .5s;
     }
     .fade-enter, .fade-leave-active {
       opacity: 0;

@@ -33441,7 +33441,7 @@ exports = module.exports = __webpack_require__(2)();
 
 
 // module
-exports.push([module.i, ".fade-enter-active,.fade-leave-active{transition:opacity height .25s .5s}.fade-enter,.fade-leave-active{opacity:0;height:0}", ""]);
+exports.push([module.i, ".fade-enter-active,.fade-leave-active{transition:opacity height .5s .5s}.fade-enter,.fade-leave-active{opacity:0;height:0}", ""]);
 
 // exports
 
