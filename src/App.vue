@@ -1,10 +1,12 @@
 <template>
     <div class="container">
+        <transition name="fade">
         <div id="page">
-            <transition name="fade">
+
                 <router-view></router-view>
-            </transition>
+
         </div>
+            </transition>
     </div>
 </template>
 

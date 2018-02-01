@@ -32878,6 +32878,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -34169,15 +34171,15 @@ exports.clearImmediate = clearImmediate;
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "container"
-  }, [_c('div', {
-    attrs: {
-      "id": "page"
-    }
   }, [_c('transition', {
     attrs: {
       "name": "fade"
     }
-  }, [_c('router-view')], 1)], 1)])
+  }, [_c('div', {
+    attrs: {
+      "id": "page"
+    }
+  }, [_c('router-view')], 1)])], 1)
 },staticRenderFns: []}
 
 /***/ }),
