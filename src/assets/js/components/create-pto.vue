@@ -82,7 +82,7 @@
                     this.pto.date_end = date_end;
                 }
 
-                this.$http.post(`https://localhost:${window.port}/api/pto/create`, this.pto, {
+                this.$http.post(`/api/pto/create`, this.pto, {
                     headers : {
                         'Content-Type' : 'application/json'
                     }

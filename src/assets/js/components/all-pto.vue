@@ -68,7 +68,7 @@
             },
             deletePto: function(pto)
             {
-                this.$http.delete(`http://localhost:${window.port}/api/pto/delete/${pto._id}/`, pto, {
+                this.$http.delete(`/api/pto/delete/${pto._id}/`, pto, {
                     headers : {
                         'Content-Type' : 'application/json'
                     }

@@ -62,7 +62,7 @@
         methods: {
             getPto: function()
             {
-                this.$http.get(`https://localhost:${window.port}/api/pto/${this.$route.params.id}/`).then((response) => {
+                this.$http.get(`/api/pto/${this.$route.params.id}/`).then((response) => {
                     this.pto = response.body;
 
                 }, (response) => {
@@ -86,7 +86,7 @@
                     this.pto.date_start = date_start;
                     this.pto.date_end = date_end;
                 }
-                this.$http.patch(`https://localhost:${window.port}/api/pto/edit/${this.$route.params.id}/`, this.pto, {
+                this.$http.patch(`/api/pto/edit/${this.$route.params.id}/`, this.pto, {
                     headers : {
                         'Content-Type' : 'application/json'
                     }
