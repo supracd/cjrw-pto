@@ -32948,8 +32948,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         fetchPtoData: function () {
-            console.log(`http://localhost:${window.port}/api/pto/`);
-            this.$http.get(`http://localhost:${window.port}/api/pto/`).then(response => {
+
+            //console.log(`http://localhost/api/pto/`);
+            this.$http.get(`/api/pto/`).then(response => {
                 this.ptos = response.body;
                 this.originalPtos = this.ptos;
             }, response => {});
@@ -33405,12 +33406,6 @@ const EditPto = __webpack_require__(130);
 const DeletePto = __webpack_require__(129);
 const PtoCalendar = __webpack_require__(127);
 
-if (true) {
-    window.port = __webpack_require__.i({"NODE_ENV":"production"}).PORT;
-} else {
-    window.port = '3000';
-}
-
 const routes = [{
     name: 'all_pto',
     path: '/',
@@ -33433,12 +33428,6 @@ const routes = [{
     component: PtoCalendar
 }];
 
-/* harmony default export */ __webpack_exports__["default"] = (context => {
-
-    // access drupalBaseUrl from our templates
-
-
-});
 var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({ routes: routes, mode: 'history' });
 new __WEBPACK_IMPORTED_MODULE_0_vue___default.a(__WEBPACK_IMPORTED_MODULE_0_vue___default.a.util.extend({ router }, __WEBPACK_IMPORTED_MODULE_4__App_vue___default.a)).$mount('#app');
 

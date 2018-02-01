@@ -102,7 +102,6 @@ app.get('/api/pto/:id', function(req, res) {
             console.error(error);
             process.exit(1);
         }
-        console.log(body);
         res.json(body);
     });
 });
@@ -160,6 +159,13 @@ app.delete('/api/pto/delete/:id', function(req, res) {
 });
 
 
+// if (process.env.PORT) {
+//     window.port = process.env.PORT;
+// } else {
+//     window.port = '3000';
+// }
+
 app.listen(app.get('port'), function() {
+    console.log(process.env);
     console.log('Server started: https://localhost:' + app.get('port') + '/');
 });
