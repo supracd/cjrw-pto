@@ -32956,7 +32956,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }, response => {});
         },
         deletePto: function (pto) {
-            this.$http.delete(`http://localhost:${window.port}/api/pto/delete/${pto._id}/`, pto, {
+            console.log(`/api/pto/delete/${pto._id}/`);
+            this.$http.delete(`/api/pto/delete/${pto._id}/`, pto, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -33036,7 +33037,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         fetchPtoData: function () {
             console.log(this);
-            this.$http.get(`https://localhost:${window.port}/api/pto/calendar`).then(response => {
+            this.$http.get(`/api/pto/calendar`).then(response => {
                 this.events = response.body;
             }, response => {});
         }
@@ -33131,7 +33132,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.pto.date_end = date_end;
             }
 
-            this.$http.post(`https://localhost:${window.port}/api/pto/create`, this.pto, {
+            this.$http.post(`/api/pto/create`, this.pto, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -33194,13 +33195,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         getPto: function () {
-            this.$http.get(`https://localhost:${window.port}/api/pto/` + this.$route.params.id).then(response => {
+            this.$http.get(`/api/pto/` + this.$route.params.id).then(response => {
                 this.pto = response.body;
             }, response => {});
         },
 
         deletePto: function () {
-            this.$http.delete(`https://localhost:${window.port}/api/pto/delete/` + this.$route.params.id, this.pto, {
+            this.$http.delete(`/api/pto/delete/` + this.$route.params.id, this.pto, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -33291,7 +33292,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         getPto: function () {
-            this.$http.get(`https://localhost:${window.port}/api/pto/${this.$route.params.id}/`).then(response => {
+            this.$http.get(`/api/pto/${this.$route.params.id}/`).then(response => {
                 this.pto = response.body;
             }, response => {});
             return this.pto;
@@ -33310,7 +33311,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.pto.date_start = date_start;
                 this.pto.date_end = date_end;
             }
-            this.$http.patch(`https://localhost:${window.port}/api/pto/edit/${this.$route.params.id}/`, this.pto, {
+            this.$http.patch(`/api/pto/edit/${this.$route.params.id}/`, this.pto, {
                 headers: {
                     'Content-Type': 'application/json'
                 }

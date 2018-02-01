@@ -68,6 +68,7 @@
             },
             deletePto: function(pto)
             {
+                console.log(`/api/pto/delete/${pto._id}/`);
                 this.$http.delete(`/api/pto/delete/${pto._id}/`, pto, {
                     headers : {
                         'Content-Type' : 'application/json'
