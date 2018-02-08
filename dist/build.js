@@ -33120,7 +33120,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         approvePto: function (pto) {
 
-            this.$http.delete(`/api/pto/approve/${pto._id}/`, pto, {
+            this.$http.patch(`/api/pto/approve/${pto._id}/`, pto, {
                 headers: {
                     'Content-Type': 'application/json'
                 }

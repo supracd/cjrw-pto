@@ -96,7 +96,7 @@
             approvePto: function(pto)
             {
 
-                this.$http.delete(`/api/pto/approve/${pto._id}/`, pto, {
+                this.$http.patch(`/api/pto/approve/${pto._id}/`, pto, {
                     headers : {
                         'Content-Type' : 'application/json'
                     }
