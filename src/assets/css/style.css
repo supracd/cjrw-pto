@@ -1,11 +1,28 @@
-body
-{
-    background: #F5F5F5;
-    color: #333;
+#pto-calendar > div > div.calendar-header > div.header-center > span.title{
+
+        font-size: 2em;
+
+}
+.bg-dark {
+    background-color: #212620 !important;
+}
+body{
+    font-family: 'Libre Franklin', sans-serif!important;
+}
+h1, h2, h3, h4, h5, h6, a, span, label{
+    font-family: 'Oswald', sans-serif!important;
+
+}
+#navbarColor03 > ul > li > a{
+    font-size: 1.5em;
+    margin-right: 20px;
+    color: white;
 }
 
-#page
-{
-    background: #FFF;
-    padding: 3rem;
+
+#page{
+    padding: 3%;
+}
+label{
+    font-size: 1.3em!important;
 }

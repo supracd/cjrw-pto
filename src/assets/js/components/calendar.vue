@@ -1,7 +1,7 @@
 <template>
     <div id="pto-calendar">
-        <p><router-link :to="{ name: 'all_pto' }" class="btn btn-primary">All PTO</router-link>
-        <router-link :to="{ name: 'create_pto' }" class="btn btn-primary">Create PTO</router-link></p>
+            <h1>{{pageName}}</h1>
+
         <vue-calendar
 
  :first-day="1" :events="events"></vue-calendar>
@@ -15,7 +15,8 @@
     export default{
         data(){
             return{
-                events: []
+                events: [],
+                pageName: 'Calendar',
             }
         },
 

@@ -24,7 +24,7 @@
 
             <tbody>
 
-                <tr v-for="pto in ptos" v-bind:class="{ sucess: pto.approved }">
+                <tr v-for="pto in ptos">
 
                     <td>{{ pto.name }}</td>
                     <td>{{ pto.date_start | moment("dddd, MMMM Do YYYY")}}</td>
@@ -32,7 +32,8 @@
                     <td>
                         <router-link :to="{name: 'edit_pto', params: { id: pto._id }}" class="btn btn-primary">Edit</router-link>
 
-                        <input type="button" name="delete" v-on:click="deletePto(pto)" class="btn btn-primary btn-danger" value="Delete"></input>
+                        <input type="button" name="delete" v-on:click="deletePto(pto)" class="btn btn-danger" value="Delete"></input>
+                        <input type="button" name="approve" v-on:click="approvePto(pto)" class="btn btn-danger" value="Approve"></input>
                     </td>
                 </tr>
 
@@ -68,7 +69,10 @@
                     this.ptos = response.body;
                     this.originalPtos = this.ptos;
                 }, (response) => {
-
+                    this.notifications.push({
+                        type: 'danger',
+                        message: 'Problem Fetching PTOs ' + response
+                    });
                 });
             },
             deletePto: function(pto)
@@ -86,6 +90,24 @@
                     this.notifications.push({
                         type: 'danger',
                         message: 'Pto could not deleted'
+                    });
+                });
+            },
+            approvePto: function(pto)
+            {
+
+                this.$http.delete(`/api/pto/approve/${pto._id}/`, pto, {
+                    headers : {
+                        'Content-Type' : 'application/json'
+                    }
+                }).then((response) => {
+
+
+
+                }, (response) => {
+                    this.notifications.push({
+                        type: 'danger',
+                        message: 'Pto could not be approved ' + response
                     });
                 });
             },

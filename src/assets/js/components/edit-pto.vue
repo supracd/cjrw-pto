@@ -1,16 +1,13 @@
 <template>
     <div id="update-pto">
-        <h1>Update PTO</h1>
 
-        <p><router-link :to="{ name: 'all_pto' }">Return to pto list</router-link></p>
+
+
 
         <notification v-bind:notifications="notifications"></notification>
 
         <form v-on:submit.prevent="editPto">
-    <!--        <div class="form-group">
-                <label name="pto_id">ID</label>
-                <input type="text" class="form-control" disabled v-model="pto.id" id="pto_id">
-            </div>-->
+
 
             <div class="form-group">
                 <label name="pto_name">Name</label>
@@ -51,7 +48,8 @@
                 },
                 endTime: {
                     time: ''
-                }
+                },
+                pageName: 'Edit PTO',
             }
         },
 

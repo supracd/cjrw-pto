@@ -111,7 +111,8 @@ app.post('/api/pto/create', function(req, res) {
     options.body = {
         'name': req.body.name,
         'date_start': req.body.date_start,
-        'date_end': req.body.date_end
+        'date_end': req.body.date_end,
+        'approved': false
     };
     request(options, function (error, response, body) {
         if (error) {
@@ -131,6 +132,25 @@ app.patch('/api/pto/edit/:id', function(req, res) {
         'name': req.body.name,
         'date_start': req.body.date_start,
         'date_end': req.body.date_end
+    };
+    options.url += '/' + req.params.id;
+    request(options, function (error, response, body) {
+        if (error) {
+            console.error(error);
+            process.exit(1);
+        }
+
+        res.json(body);
+    });
+
+});
+app.patch('/api/pto/approve/:id', function(req, res) {
+    var options = JSON.parse(JSON.stringify(PUT_PTO_OPTIONS));
+    options.body = {
+        'name': req.body.name,
+        'date_start': req.body.date_start,
+        'date_end': req.body.date_end,
+        'approved': true
     };
     options.url += '/' + req.params.id;
     request(options, function (error, response, body) {
@@ -166,6 +186,5 @@ app.delete('/api/pto/delete/:id', function(req, res) {
 // }
 
 app.listen(app.get('port'), function() {
-    console.log(process.env);
     console.log('Server started: https://localhost:' + app.get('port') + '/');
 });

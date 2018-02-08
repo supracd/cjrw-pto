@@ -9,7 +9,7 @@ Vue.use(VueResource);
 import myDatepicker from 'vue-datepicker'
 
 Vue.component('date-picker', myDatepicker);
-import App from './App.vue'
+
 import vueCalendar from 'vue2-simple-calendar'
 
 Vue.component('vue-calendar', vueCalendar);
@@ -18,11 +18,14 @@ Vue.use(require('vue-moment'));
 import DatePicker from 'vue2-datepicker'
 Vue.component('date-picker', DatePicker);
 
+import App from './App.vue';
+Vue.use(App);
+
 const AllPto = require('./assets/js/components/all-pto.vue');
 const CreatePto = require('./assets/js/components/create-pto.vue');
 const EditPto = require('./assets/js/components/edit-pto.vue');
-const DeletePto = require('./assets/js/components/delete-pto.vue');
 const PtoCalendar = require('./assets/js/components/calendar.vue');
+const Approval = require('./assets/js/components/approval.vue');
 
 
 const routes = [
@@ -42,14 +45,14 @@ const routes = [
         component: EditPto
     },
     {
-        name: 'delete_pto',
-        path: '/pto/delete/:id',
-        component: DeletePto
-    },
-    {
         name: 'view_calendar',
         path: '/calendar',
         component: PtoCalendar,
+    },
+    {
+        name: 'approval',
+        path: '/approval',
+        component: Approval,
     }
 ];
 
