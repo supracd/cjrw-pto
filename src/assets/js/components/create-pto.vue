@@ -10,7 +10,8 @@
 
       <div class="form-group">
         <label for="pto_name" name="pto_name" >Name</label>
-        <input type="text" data-provide="typeahead" class="typeahead form-control form-control-lg" autocomplete="off" v-model="pto.name" id="pto_name" required>
+        <input ref="pto_name" id="pto_name" v-model="pto.name" autocomplete="off" class="form-control form-control-lg" type="text" placeholder="Name Search..." required>
+        <typeahead :data="names" target="#pto_name" v-model="model" />
       </div>
       <div class="form-group">
         <div class="row">
@@ -41,12 +42,9 @@
 
 
 <script>
-$('#pto_name').typeahead({source: ["Jill Joslin","Darin Gray","Lukas Arnold","Wade Austin","Vita Barré","Nicole Boddington","Lyuba Bogan","Lynn Boyd","Anna Branch","Robert Burnham","John Cater","Brandi Childress","Heidi Damron","Sean Dandurand","Shelby Daniel","Ralph Eubanks","Lauren Euseppi","Nancy Ferrara","Christy Fulton","Debbie Grace","Jason Grisham",
-"Bryce Harrison",
-"Becky Heflin","Chris Ho","Tiffany Holland Maltezo","Annie Holman","Kelsey  Hook","Paul Hughes","Kerry Johnson","Bob Johnston","Brian Kratkiewicz ","Gracie Lively","Ryan Lowery","Wade McCune","Belinda McKim","Kelly McLarty","Jennifer Morgan","Scott Mosley","Sherkari  Parks","Estefanie Perez Ferrer","Kathy Porter","Mark Raines","Caroline Reddmann","Robyn Rektor","Emilie Reno","Rachel Reynolds","Dan Sawyer",
-"Jane Embry Selig","Sarah Sikes","Dalaney Thomas","Katherine Vasilos","Caitlin Vestal","Josh Walker","Blair Wallace","Tanya Whitlock","Maxine Williams","Shanon Williams","Teresa Williamson","Margaret Willis","Shelby Woods","Brenda Worm","Keegan Wright"]}
-);
-console.log('xxxxxx');
+
+
+
 import Notification from './notifications.vue';
 
 export default {
@@ -55,8 +53,11 @@ export default {
       pto: {},
       notifications: [],
       date: new Date(),
-      time1: '',
-      time2: '',
+      model: '',
+      names: ["Jill Joslin","Darin Gray","Lukas Arnold","Wade Austin","Vita Barré","Nicole Boddington","Lyuba Bogan","Lynn Boyd","Anna Branch","Robert Burnham","John Cater","Brandi Childress","Heidi Damron","Sean Dandurand","Shelby Daniel","Ralph Eubanks","Lauren Euseppi","Nancy Ferrara","Christy Fulton","Debbie Grace","Jason Grisham",
+      "Bryce Harrison",
+      "Becky Heflin","Chris Ho","Tiffany Holland Maltezo","Annie Holman","Kelsey  Hook","Paul Hughes","Kerry Johnson","Bob Johnston","Brian Kratkiewicz ","Gracie Lively","Ryan Lowery","Wade McCune","Belinda McKim","Kelly McLarty","Jennifer Morgan","Scott Mosley","Sherkari  Parks","Estefanie Perez Ferrer","Kathy Porter","Mark Raines","Caroline Reddmann","Robyn Rektor","Emilie Reno","Rachel Reynolds","Dan Sawyer",
+      "Jane Embry Selig","Sarah Sikes","Dalaney Thomas","Katherine Vasilos","Caitlin Vestal","Josh Walker","Blair Wallace","Tanya Whitlock","Maxine Williams","Shanon Williams","Teresa Williamson","Margaret Willis","Shelby Woods","Brenda Worm","Keegan Wright"],
       pageName: 'Create PTO Request',
       shortcuts: [{
         text: 'Today',
@@ -103,8 +104,8 @@ export default {
   },
 
   components: {
-    'notification': Notification
+    'notification': Notification,
 
-  }
+}
 }
 </script>

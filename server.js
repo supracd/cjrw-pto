@@ -88,7 +88,20 @@ app.get('/api/pto/calendar', function(req, res) {
         }
         var events = [];
         for(var i = 0; i < body.length; i++){
-            events.push({id: i + 1, title: body[i]['name'], class: 'panel-danger', start: new Date(body[i]['date_start']), end: new Date(body[i]['date_end']) })
+                var cls = '';
+                if(body[i].approved){
+                    cls = 'badge badge-pill badge-success';
+                }else{
+                    cls = 'badge badge-pill badge-danger';
+                }
+                events.push({id: body[i]['_id'],
+                             title: body[i]['name'],
+                             class: cls,
+                             start: new Date(body[i]['date_start']),
+                             end: new Date(body[i]['date_end'])
+                         })
+
+
         }
         res.json(events);
     });
@@ -163,7 +176,25 @@ app.patch('/api/pto/approve/:id', function(req, res) {
     });
 
 });
+app.patch('/api/pto/disapprove/:id', function(req, res) {
+    var options = JSON.parse(JSON.stringify(PUT_PTO_OPTIONS));
+    options.body = {
+        'name': req.body.name,
+        'date_start': req.body.date_start,
+        'date_end': req.body.date_end,
+        'approved': false
+    };
+    options.url += '/' + req.params.id;
+    request(options, function (error, response, body) {
+        if (error) {
+            console.error(error);
+            process.exit(1);
+        }
 
+        res.json(body);
+    });
+
+});
 app.delete('/api/pto/delete/:id', function(req, res) {
 
     var options = JSON.parse(JSON.stringify(DELETE_PTO_OPTIONS));

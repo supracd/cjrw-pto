@@ -19,7 +19,9 @@
           <li class="nav-item">
             <router-link :to="{ name: 'view_calendar' }" class="nav-link">View Calendar</router-link>
           </li>
-
+          <li class="nav-item">
+            <router-link :to="{ name: 'approval' }" class="nav-link">Approve Requests</router-link>
+          </li>
         </ul>
 
       </div>

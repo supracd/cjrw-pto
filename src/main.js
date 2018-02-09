@@ -18,6 +18,10 @@ Vue.use(require('vue-moment'));
 import DatePicker from 'vue2-datepicker'
 Vue.component('date-picker', DatePicker);
 
+import { Typeahead } from 'uiv';
+
+Vue.component('typeahead', Typeahead);
+
 import App from './App.vue';
 Vue.use(App);
 

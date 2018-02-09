@@ -24,7 +24,7 @@
 
             <tbody>
 
-                <tr v-for="pto in ptos">
+                <tr v-for="(pto, index) in ptos" v-on:remove="ptos.splice(index, 1)" v-bind:key="pto.id" v-bind:class="[pto.approved ? 'table-success' : '']">
 
                     <td>{{ pto.name }}</td>
                     <td>{{ pto.date_start | moment("dddd, MMMM Do YYYY")}}</td>
@@ -33,7 +33,8 @@
                         <router-link :to="{name: 'edit_pto', params: { id: pto._id }}" class="btn btn-primary">Edit</router-link>
 
                         <input type="button" name="delete" v-on:click="deletePto(pto)" class="btn btn-danger" value="Delete"></input>
-                        <input type="button" name="approve" v-on:click="approvePto(pto)" class="btn btn-danger" value="Approve"></input>
+                        <input v-if="!pto.approved" type="button" name="approve" v-on:click="approvePto(index, pto)" class="btn btn-warning" value="Approve"></input>
+                        <input v-if="pto.approved" type="button" name="disapprove" v-on:click="disapprovePto(index, pto)" class="btn btn-warning" value="Disapprove"></input>
                     </td>
                 </tr>
 
@@ -43,94 +44,90 @@
 </template>
 
 <script>
-
-    export default{
-        data(){
-            return{
-                ptos: [],
-                originalPtos: [],
-                ptoSearch: '',
-                pageName: 'All PTO'
-            }
-        },
-
-        created: function()
-        {
-            this.fetchPtoData();
-
-        },
-
-        methods: {
-            fetchPtoData: function()
-            {
-
-
-                this.$http.get(`/api/pto/`).then((response) => {
-                    this.ptos = response.body;
-                    this.originalPtos = this.ptos;
-                }, (response) => {
-                    this.notifications.push({
-                        type: 'danger',
-                        message: 'Problem Fetching PTOs ' + response
-                    });
+export default {
+    data() {
+        return {
+            ptos: [],
+            originalPtos: [],
+            ptoSearch: '',
+            pageName: 'Approve PTO'
+        }
+    },
+    created: function() {
+        this.fetchPtoData();
+    },
+    methods: {
+        fetchPtoData: function() {
+            this.$http.get(`/api/pto/`).then((response) => {
+                this.ptos = response.body;
+                this.originalPtos = this.ptos;
+            }, (response) => {
+                this.notifications.push({
+                    type: 'danger',
+                    message: 'Problem Fetching PTOs ' + response
                 });
-            },
-            deletePto: function(pto)
-            {
-
-                this.$http.delete(`/api/pto/delete/${pto._id}/`, pto, {
-                    headers : {
-                        'Content-Type' : 'application/json'
-                    }
-                }).then((response) => {
-
+            });
+        },
+        deletePto: function(pto) {
+            this.$http.delete(`/api/pto/delete/${pto._id}/`, pto, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then((response) => {
                 this.ptos.splice(this.ptos.indexOf(pto), 1);
-
-                }, (response) => {
-                    this.notifications.push({
-                        type: 'danger',
-                        message: 'Pto could not deleted'
-                    });
+            }, (response) => {
+                this.notifications.push({
+                    type: 'danger',
+                    message: 'Pto could not deleted'
                 });
-            },
-            approvePto: function(pto)
-            {
-
-                this.$http.patch(`/api/pto/approve/${pto._id}/`, pto, {
-                    headers : {
-                        'Content-Type' : 'application/json'
-                    }
-                }).then((response) => {
-
-
-
-                }, (response) => {
-                    this.notifications.push({
-                        type: 'danger',
-                        message: 'Pto could not be approved ' + response
-                    });
+            });
+        },
+        approvePto: function(index, pto) {
+            this.$http.patch(`/api/pto/approve/${pto._id}/`, pto, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then((response) => {
+                //Vue.set(this.ptos[index], 'approved', true);
+                this.ptos[index].approved = true;
+                this.fetchPtoData();
+            }, (response) => {
+                this.notifications.push({
+                    type: 'danger',
+                    message: 'Pto could not be approved ' + response
                 });
-            },
-            searchPto: function()
-            {
-                if(this.ptoSearch == '')
-                {
-                    this.ptos = this.originalPtos;
-                    return;
+            });
+        },
+        disapprovePto: function(index, pto) {
+            this.$http.patch(`/api/pto/disapprove/${pto._id}/`, pto, {
+                headers: {
+                    'Content-Type': 'application/json'
                 }
-
-                var searchedPtos = [];
-                for(var i = 0; i < this.originalPtos.length; i++)
-                {
-                    var ptoName = this.originalPtos[i]['name'].toLowerCase();
-                    if(ptoName.indexOf(this.ptoSearch.toLowerCase()) >= 0)
-                    {
-                        searchedPtos.push(this.originalPtos[i]);
-                    }
-                }
-
-                this.ptos = searchedPtos;
+            }).then((response) => {
+                //Vue.set(this.ptos[index], 'approved', true);
+                this.ptos[index].approved = false;
+                this.fetchPtoData();
+            }, (response) => {
+                this.notifications.push({
+                    type: 'danger',
+                    message: 'Pto could not be disapproved ' + response
+                });
+            });
+        },
+        searchPto: function() {
+            if (this.ptoSearch == '') {
+                this.ptos = this.originalPtos;
+                return;
             }
+            var searchedPtos = [];
+            for (var i = 0; i < this.originalPtos.length; i++) {
+                var ptoName = this.originalPtos[i]['name'].toLowerCase();
+                if (ptoName.indexOf(this.ptoSearch.toLowerCase()) >= 0) {
+                    searchedPtos.push(this.originalPtos[i]);
+                }
+            }
+            this.ptos = searchedPtos;
         }
     }
+}
 </script>

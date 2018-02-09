@@ -24,7 +24,7 @@
 
             <tbody>
 
-                <tr v-for="pto in ptos" v-bind:class="{ sucess: pto.approved }">
+                <tr v-for="pto in ptos" v-bind:class="[pto.approved ? 'table-success' : '']">
 
                     <td>{{ pto.name }}</td>
                     <td>{{ pto.date_start | moment("dddd, MMMM Do YYYY")}}</td>
@@ -44,6 +44,7 @@
 <script>
 
     export default{
+        
         data(){
             return{
                 ptos: [],
