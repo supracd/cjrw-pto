@@ -6,13 +6,12 @@ Vue.use(VueRouter)
 import VueResource from 'vue-resource';
 Vue.use(VueResource);
 
-import myDatepicker from 'vue-datepicker'
 
-Vue.component('date-picker', myDatepicker);
 
 import vueCalendar from 'vue2-simple-calendar'
 
 Vue.component('vue-calendar', vueCalendar);
+Vue.use(vueCalendar);
 
 Vue.use(require('vue-moment'));
 import DatePicker from 'vue2-datepicker'

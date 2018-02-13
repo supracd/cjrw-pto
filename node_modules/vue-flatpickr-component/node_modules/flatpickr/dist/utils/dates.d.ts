@@ -4,8 +4,8 @@ export interface FormatterArgs {
     config?: ParsedOptions;
     l10n?: Locale;
 }
-export declare const createDateFormatter: ({config, l10n}: FormatterArgs) => (dateObj: Date, frmt: string) => string;
-export declare const createDateParser: ({config, l10n}: {
+export declare const createDateFormatter: ({ config, l10n, }: FormatterArgs) => (dateObj: Date, frmt: string, overrideLocale?: Locale | undefined) => string;
+export declare const createDateParser: ({ config, l10n }: {
     config?: ParsedOptions;
     l10n?: Locale;
 }) => (date: string | number | Date, givenFormat?: string | undefined, timeless?: boolean | undefined) => Date | undefined;

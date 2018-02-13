@@ -17,7 +17,7 @@ export interface InputProps extends AbstractInputProps {
     id?: number | string;
     name?: string;
     size?: 'large' | 'default' | 'small';
-    maxLength?: number;
+    maxLength?: number | string;
     disabled?: boolean;
     readOnly?: boolean;
     addonBefore?: React.ReactNode;

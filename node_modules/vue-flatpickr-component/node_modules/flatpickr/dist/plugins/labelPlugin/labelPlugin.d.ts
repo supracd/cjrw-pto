@@ -1,5 +1,3 @@
-import { Instance } from "../../types/instance";
-declare function labelPlugin(): (fp: Instance) => {
-    onReady(): void;
-};
+import { Plugin } from "../../types/options";
+declare function labelPlugin(): Plugin;
 export default labelPlugin;

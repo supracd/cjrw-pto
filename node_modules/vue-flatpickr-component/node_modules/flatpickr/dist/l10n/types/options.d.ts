@@ -8,7 +8,7 @@ export declare type DateRangeLimit<D = DateOption> = {
 export declare type DateLimit<D = DateOption> = D | DateRangeLimit<D> | ((date: Date) => boolean);
 export declare type Hook = (dates: Date[], currentDateString: string, self: Instance, data?: any) => void;
 export declare type HookKey = "onChange" | "onClose" | "onDayCreate" | "onDestroy" | "onKeyDown" | "onMonthChange" | "onOpen" | "onParseConfig" | "onReady" | "onValueUpdate" | "onYearChange" | "onPreCalendarPosition";
-export declare type Plugin = (fp: Instance) => Options;
+export declare type Plugin<E = {}> = (fp: Instance & E) => Options;
 export interface Options {
     allowInput?: boolean;
     altFormat?: string;

@@ -1,0 +1,9 @@
+.DS_Store
+.idea
+.vscode
+build/
+node_modules
+npm-debug.log
+static
+vue-strap.sublime-project
+vue-strap.sublime-workspace

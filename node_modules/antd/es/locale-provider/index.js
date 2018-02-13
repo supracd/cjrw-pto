@@ -10,6 +10,8 @@ import { changeConfirmLocale } from '../modal/locale';
 function setMomentLocale(locale) {
     if (locale && locale.locale) {
         moment.locale(locale.locale);
+    } else {
+        moment.locale('en');
     }
 }
 

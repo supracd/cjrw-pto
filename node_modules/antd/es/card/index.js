@@ -227,11 +227,7 @@ var Card = function (_React$Component) {
             var body = React.createElement(
                 "div",
                 { className: prefixCls + "-body", style: bodyStyle },
-                loading ? loadingBlock : React.createElement(
-                    "div",
-                    null,
-                    children
-                )
+                loading ? loadingBlock : children
             );
             var actionDom = actions && actions.length ? React.createElement(
                 "ul",
@@ -244,7 +240,7 @@ var Card = function (_React$Component) {
                 _extends({}, divProps, { className: classString, ref: this.saveRef }),
                 head,
                 coverDom,
-                children ? body : null,
+                body,
                 actionDom
             );
         }

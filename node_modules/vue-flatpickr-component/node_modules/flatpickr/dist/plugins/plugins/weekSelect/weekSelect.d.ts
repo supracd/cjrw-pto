@@ -1,15 +1,7 @@
-import { Instance } from "../../types/instance";
-export declare type InstancePlusWeeks = Instance & {
+import { Plugin } from "../../types/options";
+export declare type PlusWeeks = {
     weekStartDay: Date;
     weekEndDay: Date;
 };
-declare function weekSelectPlugin(): (fp: InstancePlusWeeks) => {
-    onValueUpdate: () => void;
-    onMonthChange: () => void;
-    onYearChange: () => void;
-    onClose: () => void;
-    onParseConfig: () => void;
-    onReady: (() => void)[];
-    onDestroy: () => void;
-};
+declare function weekSelectPlugin(): Plugin<PlusWeeks>;
 export default weekSelectPlugin;

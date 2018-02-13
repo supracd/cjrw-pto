@@ -6,7 +6,7 @@ var request = require("request");
 var https = require('https');
 var app = express();
 
-//var PTO_FILE = path.join(__dirname, 'src/assets/js/components/pto-data.json');
+
 
 app.set('port', (process.env.PORT || 3000));
 app.use('/', express.static(__dirname));
@@ -88,11 +88,11 @@ app.get('/api/pto/calendar', function(req, res) {
         }
         var events = [];
         for(var i = 0; i < body.length; i++){
-                var cls = '';
+                var cls = 'badge badge-pill';
                 if(body[i].approved){
-                    cls = 'badge badge-pill badge-success';
+                    cls += ' badge-success';
                 }else{
-                    cls = 'badge badge-pill badge-danger';
+                    cls += ' badge-danger';
                 }
                 events.push({id: body[i]['_id'],
                              title: body[i]['name'],
@@ -100,8 +100,6 @@ app.get('/api/pto/calendar', function(req, res) {
                              start: new Date(body[i]['date_start']),
                              end: new Date(body[i]['date_end'])
                          })
-
-
         }
         res.json(events);
     });

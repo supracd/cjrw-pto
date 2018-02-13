@@ -56,7 +56,7 @@ export declare type Instance = Elements & Formatting & {
     maxDateHasTime: boolean;
     showTimeInput: boolean;
     _showTimeInput: boolean;
-    changeMonth: (value: number, is_offset?: boolean, animate?: boolean, from_keyboard?: boolean) => void;
+    changeMonth: (value: number, is_offset?: boolean, from_keyboard?: boolean) => void;
     changeYear: (year: number) => void;
     clear: (emitChangeEvent?: boolean) => void;
     close: () => void;
@@ -73,7 +73,6 @@ export declare type Instance = Elements & Formatting & {
     pad: (num: string | number) => string;
     parseDate: (date: Date | string | number, givenFormat?: string, timeless?: boolean) => Date | undefined;
     formatDate: (dateObj: Date, frmt: string) => string;
-    _animationLoop: Function[];
     _handlers: {
         event: string;
         element: Element;

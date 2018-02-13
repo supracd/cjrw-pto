@@ -1,4 +1,4 @@
-import { Instance } from "../types/instance";
+import { Plugin } from "../types/options";
 export interface MinMaxTime {
     minTime?: string;
     maxTime?: string;
@@ -13,8 +13,5 @@ export interface State {
     tableDateFormat: string;
     defaults: MinMaxTime;
 }
-declare function minMaxTimePlugin(config?: Config): (fp: Instance) => {
-    onReady(this: Instance): void;
-    onChange(this: Instance): void;
-};
+declare function minMaxTimePlugin(config?: Config): Plugin;
 export default minMaxTimePlugin;

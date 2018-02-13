@@ -1,4 +1,4 @@
-import { Instance } from "../types/instance";
+import { Plugin } from "../types/options";
 export interface Config {
     input?: string | HTMLInputElement;
 }
@@ -7,12 +7,5 @@ declare global  {
         rangePlugin: (config?: Config) => void;
     }
 }
-declare function rangePlugin(config?: Config): (fp: Instance) => {
-    onParseConfig(): void;
-    onReady(): void;
-    onPreCalendarPosition(): void;
-    onChange(): void;
-    onDestroy(): void;
-    onValueUpdate(selDates: Date[]): void;
-};
+declare function rangePlugin(config?: Config): Plugin;
 export default rangePlugin;
