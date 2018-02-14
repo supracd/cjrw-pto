@@ -4,6 +4,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var request = require("request");
 var https = require('https');
+var history = require('connect-history-api-fallback');
 var app = express();
 
 
@@ -12,6 +13,7 @@ app.set('port', (process.env.PORT || 3000));
 app.use('/', express.static(__dirname));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(history());
 
 
 // Additional middleware which will set headers that we need on each request.

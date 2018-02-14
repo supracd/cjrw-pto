@@ -1,3 +1,57 @@
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
+}
+.bounce-enter-active {
+   animation: flip-in .25s;
+
+}
+.bounce-leave-active {
+    animation: flip-out .25s;
+
+}
+@keyframes flip-in {
+  0% {
+    transform: scale(0.1) translateX(-1000px);
+    opacity: 0;
+
+  }
+  50%{
+      opacity: .35;
+  }
+  100% {
+    transform: scale(1) translateX(0px);
+    opacity: 1;
+
+  }
+}
+@keyframes flip-out {
+  100% {
+    transform: scale(0.1) translateX(1000px);
+    opacity: 0;
+
+  }
+  50%{
+      opacity: .35;
+  }
+  0% {
+    transform: scale(1) translateX(0px);
+    opacity: 1;
+
+  }
+}
+
+.container{
+    transition: all .5s ease;
+    min-height: 100vh;
+}
 #pto-calendar > div > div.calendar-header > div.header-center > span.title{
 
         font-size: 2em;
@@ -17,6 +71,16 @@ h1, h2, h3, h4, h5, h6, a, span, label, input{
     font-size: 1.5em;
     margin-right: 20px;
     color: white;
+}
+
+body{
+    background-image: url(/src/assets/images/gears.jpg);
+    background-size: cover;
+background-repeat: no-repeat;
+height: 100vh;
+}
+.container{
+    background-color: white;
 }
 
 

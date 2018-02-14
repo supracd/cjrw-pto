@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+<div id="app" class="container">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <router-link :to="{ name: 'all_pto' }" class="navbar-brand"><img width="80" src="/src/assets/images/logo.jpeg" /></router-link>
 
@@ -26,27 +26,17 @@
 
       </div>
     </nav>
-    <div id="page">
- <transition name="fade">
+<div id="page">
+    <transition mode="out-in" name="bounce" appear>
       <router-view></router-view>
-</transition>
-    </div>
+  </transition>
 
-  </div>
+</div>
+
+
+</div>
 </template>
 
-<style>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity .5s height .5s;
-}
-
-.fade-enter,
-.fade-leave-active {
-  opacity: 0;
-  height: 0px;
-}
-</style>
 
 <script>
 export default {

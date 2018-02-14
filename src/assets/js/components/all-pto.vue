@@ -10,7 +10,7 @@
         <div class="form-group">
             <input type="text" name="search" v-model="ptoSearch" placeholder="Search pto" class="form-control" v-on:keyup="searchPto">
         </div>
-
+<transition mode="out-in" name="bounce" appear>
         <table class="table table-hover">
             <thead>
             <tr>
@@ -34,17 +34,19 @@
 
                         <input type="button" name="delete" v-on:click="deletePto(pto)" class="btn btn-primary btn-danger" value="Delete"></input>
                     </td>
+
                 </tr>
 
             </tbody>
         </table>
+                </transition>
     </div>
 </template>
 
 <script>
 
     export default{
-        
+
         data(){
             return{
                 ptos: [],
