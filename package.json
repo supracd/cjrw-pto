@@ -37,9 +37,7 @@
     "vuejs-datepicker": "^0.9.22",
     "vuejs-datetimepicker": "^1.1.1",
     "vuetify": "^0.17.6",
-    "vuex": "^3.0.1"
-  },
-  "devDependencies": {
+    "vuex": "^3.0.1",
     "babel-core": "^6.0.0",
     "babel-loader": "^6.0.0",
     "babel-preset-es2015": "^6.0.0",
@@ -52,5 +50,8 @@
     "vue-router": "^2.0.1",
     "webpack": "^3.1.0",
     "webpack-dev-server": "^2.1.0-beta.0"
+  },
+  "devDependencies": {
+
   }
 }
