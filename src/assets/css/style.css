@@ -48,6 +48,13 @@
   }
 }
 
+.pto-list-item{
+    transition: all 1s;
+}
+.pto-list-enter, .pto-list-leave-to{
+    opacity: 0;
+    transform: translateY(30px);
+}
 .container{
     transition: all .5s ease;
     min-height: 100vh;

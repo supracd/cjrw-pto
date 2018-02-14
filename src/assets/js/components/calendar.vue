@@ -46,9 +46,9 @@
 
             },
             eventClicked: function(event){
-                const start = event.start.toLocaleString('en-US');
-                const end = event.end.toLocaleString('en-US');
-
+            //    const start = event.start.toLocaleString('en-US');
+            //    const end = event.end.toLocaleString('en-US');
+                this.$router.push({name: 'edit_pto', params: {'id': event['id']}})
             }
         }
     }

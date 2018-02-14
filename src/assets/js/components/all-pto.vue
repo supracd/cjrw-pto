@@ -10,7 +10,7 @@
         <div class="form-group">
             <input type="text" name="search" v-model="ptoSearch" placeholder="Search pto" class="form-control" v-on:keyup="searchPto">
         </div>
-<transition mode="out-in" name="bounce" appear>
+
         <table class="table table-hover">
             <thead>
             <tr>
@@ -24,7 +24,7 @@
 
             <tbody>
 
-                <tr v-for="pto in ptos" v-bind:class="[pto.approved ? 'table-success' : '']">
+                <tr v-for="pto in ptos" v-bind:key="pto" v-bind:class="[pto.approved ? 'table-success' : '']">
 
                     <td>{{ pto.name }}</td>
                     <td>{{ pto.date_start | moment("dddd, MMMM Do YYYY")}}</td>
@@ -39,7 +39,7 @@
 
             </tbody>
         </table>
-                </transition>
+
     </div>
 </template>
 
