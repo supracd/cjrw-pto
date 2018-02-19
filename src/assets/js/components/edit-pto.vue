@@ -38,10 +38,10 @@
     import Notification from './notifications.vue';
 
     export default{
+        name: 'edit-pto',
         data(){
             return{
-                pto:this.getPto(),
-                notifications:[],
+                pto: {},
                 date: new Date(),
                 startTime: {
                     time: ''
@@ -52,8 +52,13 @@
                 pageName: 'Edit PTO',
             }
         },
-
+        computed: {
+            notifications() {
+                return this.$store.state.notifications;
+            }
+        },
         created: function(){
+            this.$store.dispatch('clearNotifications');
             this.getPto();
         },
 
@@ -66,39 +71,12 @@
                 }, (response) => {
 
                 });
-                return this.pto;
             },
 
             editPto: function()
             {
-                var date_start = this.pto.date_start;
-                var date_end = this.pto.date_end;
-                if(!date_start || !date_end)
-                {
-                    this.notifications.push({
-                        type: 'danger',
-                        message: 'Incorrect Date Format'
-                    });
-                    return false;
-                } else {
-                    this.pto.date_start = date_start;
-                    this.pto.date_end = date_end;
-                }
-                this.$http.patch(`/api/pto/edit/${this.$route.params.id}/`, this.pto, {
-                    headers : {
-                        'Content-Type' : 'application/json'
-                    }
-                }).then((response) => {
-                    this.notifications.push({
-                        type: 'success',
-                        message: 'Pto updated successfully'
-                    });
-                }, (response) => {
-                    this.notifications.push({
-                        type: 'error',
-                        message: 'Pto not updated'
-                    });
-                });
+                this.$store.dispatch('editPto', this.pto);
+                this.$store.dispatch('fetchPtoData');
             }
         },
 

@@ -1,55 +1,57 @@
+
+
 <template>
-    <div id="pto-calendar">
-            <h1>{{pageName}}</h1>
 
-        <vue-calendar
+<div id="pto-calendar">
+    <notification v-bind:notifications="notifications"></notification>
+    <h1>{{pageName}}</h1>
 
- :first-day="1" :events="events" @dayClicked="dayClicked"
-      @eventClicked="eventClicked"></vue-calendar>
-      <div id="ModalHolder"></div>
-    </div>
+    <vue-calendar :first-day="1" :events="events" @eventClicked="eventClicked"></vue-calendar>
+
+</div>
 
 </template>
 
 <script>
 
+import Notification from './notifications.vue';
 
-
-    export default{
-        data(){
-            return{
-                events: [],
-                pageName: 'Calendar',
-            }
+export default {
+    name: 'pto-calendar',
+    data() {
+        return {
+            notifications: [],
+            pageName: 'Calendar',
+        }
+    },
+    computed: {
+        events() {
+            return this.$store.state.events;
         },
+        notifications() {
+            return this.$store.state.notifications;
+        }
+    },
+    created: function() {
+        this.$store.dispatch('clearNotifications');
+        this.fetchCalendarEvents();
+    },
 
+    methods: {
 
-        created: function()
-        {
+        fetchCalendarEvents: function() {
+            this.$store.dispatch('fetchCalendar');
 
-            this.fetchPtoData();
         },
-
-        methods: {
-
-            fetchPtoData: function()
-            {
-
-                this.$http.get(`/api/pto/calendar`).then((response) => {
-                    this.events = response.body;
-
-                }, (response) => {
-
-                });
-            },
-            dayClicked: function(day){
-
-            },
-            eventClicked: function(event){
-            //    const start = event.start.toLocaleString('en-US');
-            //    const end = event.end.toLocaleString('en-US');
-                this.$router.push({name: 'edit_pto', params: {'id': event['id']}})
-            }
+        eventClicked: function(event) {
+            this.$router.push({
+                name: 'edit_pto',
+                params: {
+                    'id': event['id']
+                }
+            })
         }
     }
+}
+
 </script>

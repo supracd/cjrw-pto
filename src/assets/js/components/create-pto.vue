@@ -9,9 +9,9 @@
     <form v-on:submit.prevent="addPto">
 
       <div class="form-group">
-        <label for="pto_name" name="pto_name" >Name</label>
+        <label for="pto_name"  >Name</label>
         <input ref="pto_name" id="pto_name" v-model="pto.name" autocomplete="off" class="form-control form-control-lg" type="text" placeholder="Name Search..." required>
-        <typeahead :data="names" target="#pto_name" v-model="model" />
+    <!--    <typeahead :data="names" target="#pto_name" v-model="model" />-->
       </div>
       <div class="form-group">
         <div class="row">
@@ -19,13 +19,13 @@
             <label name="pto_date_start">Date Starting</label>
             <date-picker   id="pto_date_start" format="yyyy-MM-dd HH:mm:ss" type="datetime" lang="en"
               :time-picker-options="{start: '00:00',step: '00:30',end: '23:30'}" :shortcuts="shortcuts"
-              v-model="pto.date_start" :first-day-of-week="1" confirm></date-picker>
+              v-model="pto.date_start" :first-day-of-week="1" ></date-picker>
           </div>
           <div class="col">
             <label name="pto_date_end">Date Ending</label>
             <date-picker   id="pto_date_end" format="yyyy-MM-dd HH:mm:ss" type="datetime" lang="en"
               :time-picker-options="{start: '00:00',step: '00:30',end: '23:30'}" :shortcuts="shortcuts"
-              v-model="pto.date_end" :first-day-of-week="1" confirm></date-picker>
+              v-model="pto.date_end" :first-day-of-week="1" ></date-picker>
           </div>
         </div>
       </div>
@@ -48,11 +48,19 @@
 import Notification from './notifications.vue';
 
 export default {
+    computed: {
+        notifications() {
+            return this.$store.state.notifications;
+        }
+    },
+  created: function(){
+    this.$store.dispatch('clearNotifications');
+  },
   data() {
     return {
       pto: {},
-      notifications: [],
       date: new Date(),
+      pto_name: '',
       model: '',
       names: ["Jill Joslin","Darin Gray","Lukas Arnold","Wade Austin","Vita Barré","Nicole Boddington","Lyuba Bogan","Lynn Boyd","Anna Branch","Robert Burnham","John Cater","Brandi Childress","Heidi Damron","Sean Dandurand","Shelby Daniel","Ralph Eubanks","Lauren Euseppi","Nancy Ferrara","Christy Fulton","Debbie Grace","Jason Grisham",
       "Bryce Harrison",
@@ -70,36 +78,9 @@ export default {
 
   methods: {
     addPto: function() {
-      // Validation
 
-      var date_start = this.pto.date_start;
-      var date_end = this.pto.date_end;
-      if (!date_start || !date_end) {
-        this.notifications.push({
-          type: 'danger',
-          message: 'Incorrect Date Format'
-        });
-        return false;
-      } else {
-        this.pto.date_start = date_start;
-        this.pto.date_end = date_end;
-      }
-
-      this.$http.post(`/api/pto/create`, this.pto, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }).then((response) => {
-        this.notifications.push({
-          type: 'success',
-          message: 'PTO request created successfully'
-        });
-      }, (response) => {
-        this.notifications.push({
-          type: 'danger',
-          message: 'PTO request not created'
-        });
-      });
+        this.$store.dispatch('addPto', this.pto);
+        this.$store.dispatch('fetchPtoData');
     }
   },
 

@@ -1,5 +1,5 @@
 import Vue from 'vue'
-
+import store from './store/store'
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
@@ -25,6 +25,7 @@ Vue.component('typeahead', Typeahead);
 import App from './App.vue';
 Vue.use(App);
 
+
 const AllPto = require('./assets/js/components/all-pto.vue');
 const CreatePto = require('./assets/js/components/create-pto.vue');
 const EditPto = require('./assets/js/components/edit-pto.vue');
@@ -36,7 +37,7 @@ const routes = [
     {
         name: 'all_pto',
         path: '/',
-        component: AllPto
+        component: AllPto, CreatePto
     },
     {
         name: 'create_pto',
@@ -63,4 +64,9 @@ const routes = [
 
 
 var router = new VueRouter({ routes: routes, mode: 'history' });
-new Vue(Vue.util.extend({ router }, App)).$mount('#app');
+new Vue(Vue.util.extend({ router, store }, App), {watch: {
+    '$route': function(from, to){
+        store.dispatch('clearNotifications');
+    }}
+}).$mount('#app');
+//new Vue({router, store, render: h => h(App)}).$mount('#app');
