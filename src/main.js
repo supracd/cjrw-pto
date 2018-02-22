@@ -37,7 +37,7 @@ const routes = [
     {
         name: 'all_pto',
         path: '/',
-        component: AllPto, CreatePto
+        component: AllPto, CreatePto, EditPto
     },
     {
         name: 'create_pto',
@@ -64,9 +64,5 @@ const routes = [
 
 
 var router = new VueRouter({ routes: routes, mode: 'history' });
-new Vue(Vue.util.extend({ router, store }, App), {watch: {
-    '$route': function(from, to){
-        store.dispatch('clearNotifications');
-    }}
-}).$mount('#app');
+new Vue(Vue.util.extend({ router, store }, App)).$mount('#app');
 //new Vue({router, store, render: h => h(App)}).$mount('#app');

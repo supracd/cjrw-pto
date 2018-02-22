@@ -50,6 +50,18 @@ var POST_PTO_OPTIONS = {
     json: true
 };
 
+var POST_LOG_OPTIONS = {
+    method: 'POST',
+    url: 'https://cjrwpto-767a.restdb.io/rest/log',
+    headers:
+    {   'cache-control': 'no-cache',
+        'x-apikey': 'f748dba8e3fb47f8f2687ffadf548877afc5e',
+        'content-type': 'application/json' },
+
+    json: true
+};
+
+
 var PUT_PTO_OPTIONS = {
     method: 'PUT',
     url: 'https://cjrwpto-767a.restdb.io/rest/pto',
@@ -126,6 +138,24 @@ app.post('/api/pto/create', function(req, res) {
         'date_start': req.body.date_start,
         'date_end': req.body.date_end,
         'approved': false
+    };
+    request(options, function (error, response, body) {
+        if (error) {
+            console.error(error);
+            process.exit(1);
+        }
+        res.json(body);
+    });
+});
+
+app.post('/api/log/create', function(req, res) {
+    var options = JSON.parse(JSON.stringify(POST_LOG_OPTIONS));
+    options.body = {
+        'ip_address': req.connection.remoteAddress,
+        'changed_from': req.body.changed_from,
+        'changed_to': req.body.changed_to,
+        'timestamp': new Date(),
+        'pto': req.body.pto
     };
     request(options, function (error, response, body) {
         if (error) {

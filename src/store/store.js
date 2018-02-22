@@ -27,8 +27,8 @@ export default new Vuex.Store({
         searchPto ({ commit }, ptoSearch) {
             commit('searchPto', ptoSearch)
         },
-        editPto ({ commit }, pto) {
-            commit('editPto', pto)
+        editPto ({ commit }, ptos) {
+            commit('editPto', ptos)
         },
         fetchCalendar ({ commit }) {
             commit('fetchCalendar')
@@ -107,7 +107,9 @@ export default new Vuex.Store({
 
             state.ptos = searchedPtos;
         },
-        editPto: function(state, pto) {
+        editPto: function(state, ptos) {
+            let pto = ptos.pto;
+            let prevPto = ptos.prevPto;
             var date_start = pto.date_start;
             var date_end = pto.date_end;
             if(!date_start || !date_end)
@@ -129,6 +131,11 @@ export default new Vuex.Store({
                 state.notifications.push({
                     type: 'success',
                     message: 'Pto updated successfully'
+                });
+                Vue.http.post('/api/log/create/', {'changed_from': prevPto, 'changed_to': pto, 'pto': pto._id}, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
                 });
             }, (response) => {
                 state.notifications.push({

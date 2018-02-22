@@ -3,7 +3,8 @@
 <template>
 <div id="all-pto">
     <h1>{{pageName}}</h1>
-    <div class="form-group"> <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#createPto">Create PTO</button>
+    <div class="form-group">
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#createPto">Create PTO</button>
         <create-pto id="createPto" class="form-control collapse"></create-pto>
     </div>
     <div class="form-group"> <input type="text" name="search" v-model="ptoSearch" placeholder="Search.." class="form-control" v-on:keyup="searchPto"> </div>
@@ -17,12 +18,17 @@
             </tr>
         </thead>
         <tbody is="transition-group" mode="out-in" name="bounce" appear>
-            <tr v-for="pto in ptos" v-bind:key="pto._id" v-bind:class="[pto.approved ? 'table-success' : '']">
+            <tr v-for="(pto, index) in ptos" v-bind:key="pto._id" v-bind:class="[pto.approved ? 'table-success' : '']">
+
                 <td>{{ pto.name }}</td>
                 <td>{{ pto.date_start | moment("dddd, MMMM Do YYYY")}}</td>
                 <td>{{ pto.date_end | moment("dddd, MMMM Do YYYY")}}</td>
                 <td>
-                    <router-link :to="{name: 'edit_pto', params: { id: pto._id }}" class="btn btn-primary">Edit</router-link> <button data-loading-text="Processing Order" id="DeleteButton" type="button" name="delete" v-on:click="deletePto(pto)" class="btn btn-primary btn-danger" value="Delete">Delete</button> </td>
+            <!--        <router-link :to="{name: 'edit_pto', params: { id: pto._id }}" class="btn btn-primary">Edit</router-link>-->
+                    <button data-loading-text="Processing Order" id="DeleteButton" type="button" name="delete" v-on:click="deletePto(pto)" class="btn btn-primary btn-danger" value="Delete">Delete</button>
+                    <button class="btn btn-primary" type="button" data-toggle="collapse" v-bind:data-target="'#editPto' + index">Edit PTO</button>
+                    <edit-pto v-bind:pto-id="pto._id" page-name="Edit PTO" v-bind:id="'editPto' + index" class="form-control collapse"></edit-pto>
+                </td>
             </tr>
         </tbody>
     </table>
@@ -32,11 +38,12 @@
 <script>
 import Notification from './notifications.vue';
 import CreatePto from './create-pto.vue';
-
+import EditPto from './edit-pto.vue';
 export default {
     name: 'all-pto',
     components: {
         CreatePto,
+        EditPto
     },
     data() {
         return {

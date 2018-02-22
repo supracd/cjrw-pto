@@ -48,20 +48,20 @@ module.exports = {
             minimize: true
         }),
     new ExtractTextPlugin("style.css"),
-    new webpack.optimize.UglifyJsPlugin({
-        compress: {
-
-          dead_code: true,
-          unused: true,
-          if_return: true,
-          join_vars: true,
-          drop_console: false
-        },
-
-        output: {
-          comments: false
-        }
-    })
+    // new webpack.optimize.UglifyJsPlugin({
+    //     compress: {
+    //
+    //       dead_code: true,
+    //       unused: true,
+    //       if_return: true,
+    //       join_vars: true,
+    //       drop_console: false
+    //     },
+    //
+    //     output: {
+    //       comments: false
+    //     }
+    // })
 ],
     resolve: {
         alias: {

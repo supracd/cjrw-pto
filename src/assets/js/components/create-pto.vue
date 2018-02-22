@@ -11,7 +11,6 @@
       <div class="form-group">
         <label for="pto_name"  >Name</label>
         <input ref="pto_name" id="pto_name" v-model="pto.name" autocomplete="off" class="form-control form-control-lg" type="text" placeholder="Name Search..." required>
-    <!--    <typeahead :data="names" target="#pto_name" v-model="model" />-->
       </div>
       <div class="form-group">
         <div class="row">
