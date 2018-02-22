@@ -174,7 +174,8 @@ app.patch('/api/pto/edit/:id', function(req, res) {
     options.body = {
         'name': req.body.name,
         'date_start': req.body.date_start,
-        'date_end': req.body.date_end
+        'date_end': req.body.date_end,
+        'approved': false
     };
     options.url += '/' + req.params.id;
     request(options, function (error, response, body) {
