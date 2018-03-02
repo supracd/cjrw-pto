@@ -53,7 +53,9 @@ export default {
     },
     computed: {
         ptos() {
-            return this.$store.state.ptos;
+            return this.$store.state.ptos.sort(function(a, b){
+                return a.date_start < b.date_start;
+            });
         },
         originalPtos() {
             return this.$store.state.originalPtos;
@@ -65,13 +67,14 @@ export default {
     created: function() {
         this.$store.dispatch('clearNotifications');
         this.fetchPtoData();
+
     },
 
     methods: {
-        fetchPtoData: function() {
+        fetchPtoData: async function() {
             this.$store.dispatch('fetchPtoData');
         },
-        deletePto: function(pto) {
+        deletePto: async function(pto) {
             this.$store.dispatch('deletePto', pto);
             this.fetchPtoData();
         },

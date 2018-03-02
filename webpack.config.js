@@ -1,5 +1,6 @@
 var path = require('path')
 var webpack = require('webpack')
+var UglifyJs = require("uglifyjs-webpack-plugin");
 var ExtractTextPlugin = require("extract-text-webpack-plugin")
 module.exports = {
     entry: './src/main.js',
@@ -48,20 +49,20 @@ module.exports = {
             minimize: true
         }),
     new ExtractTextPlugin("style.css"),
-    // new webpack.optimize.UglifyJsPlugin({
-    //     compress: {
-    //
-    //       dead_code: true,
-    //       unused: true,
-    //       if_return: true,
-    //       join_vars: true,
-    //       drop_console: false
-    //     },
-    //
-    //     output: {
-    //       comments: false
-    //     }
-    // })
+    new UglifyJs({
+        compress: {
+
+          dead_code: true,
+          unused: true,
+          if_return: true,
+          join_vars: true,
+          drop_console: false
+        },
+
+        output: {
+          comments: false
+        }
+    })
 ],
     resolve: {
         alias: {

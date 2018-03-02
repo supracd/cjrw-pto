@@ -8,27 +8,30 @@
 
         <form v-on:submit.prevent="editPto">
 
-          <div class="form-group">
-            <label for="pto_name"  >Name</label>
-            <input ref="pto_name" id="pto_name" v-model="pto.name" autocomplete="off" class="form-control form-control-lg" type="text" placeholder="Name Search..." required>
-          </div>
-          <div class="form-group">
-            <div class="row">
-              <div class="col">
-                <label name="pto_date_start">Date Starting</label>
-                <date-picker   id="pto_date_start" format="yyyy-MM-dd HH:mm:ss" type="datetime" lang="en"
-                  :time-picker-options="{start: '00:00',step: '00:30',end: '23:30'}" :shortcuts="shortcuts"
-                  v-model="pto.date_start" :first-day-of-week="1" ></date-picker>
-              </div>
-              <div class="col">
-                <label name="pto_date_end">Date Ending</label>
-                <date-picker   id="pto_date_end" format="yyyy-MM-dd HH:mm:ss" type="datetime" lang="en"
-                  :time-picker-options="{start: '00:00',step: '00:30',end: '23:30'}" :shortcuts="shortcuts"
-                  v-model="pto.date_end" :first-day-of-week="1" ></date-picker>
+            <div class="form-group">
+              <label for="pto_name"  >Name</label>
+              <input ref="pto_name" id="pto_name" v-model="pto.name" autocomplete="off" class="form-control form-control-lg" type="text" placeholder="Name" required>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col">
+                  <label name="pto_date_start">Date Starting</label>
+                  <date-picker   id="pto_date_start" format="MM-dd-yyyy HH:mm" type="datetime" lang="en"
+                    :time-picker-options="{start: '00:00',step: '00:30',end: '23:30'}" :shortcuts="shortcuts"
+                    v-model="pto.date_start" :first-day-of-week="1" ></date-picker>
+                </div>
+                <div class="col">
+                  <label name="pto_date_end">Date Ending</label>
+                  <date-picker :not-before="pto.date_start"  id="pto_date_end" format="MM-dd-yyyy HH:mm" type="datetime" lang="en"
+                    :time-picker-options="{start: '00:00',step: '00:30',end: '23:30'}" :shortcuts="shortcuts"
+                    v-model="pto.date_end" :first-day-of-week="1" ></date-picker>
+                </div>
               </div>
             </div>
-          </div>
-
+            <div class="form-group">
+              <label for="pto_reason"  >Reason</label>
+              <textarea ref="pto_reason" id="pto_reason" v-model="pto.reason" autocomplete="off" class="form-control form-control-lg" type="text" placeholder="Reason"></textarea>
+            </div>
 
 
           <div class="form-group">

@@ -4,9 +4,8 @@
 
 <div id="pto-calendar">
     <notification v-bind:notifications="notifications"></notification>
-    <h1>{{pageName}}</h1>
 
-    <vue-calendar :first-day="1" :events="events" @eventClicked="eventClicked"></vue-calendar>
+    <vue-calendar :first-day="1" :show-limit="10" :events="events" @eventClicked="eventClicked"></vue-calendar>
 
 </div>
 

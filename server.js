@@ -137,7 +137,8 @@ app.post('/api/pto/create', function(req, res) {
         'name': req.body.name,
         'date_start': req.body.date_start,
         'date_end': req.body.date_end,
-        'approved': false
+        'approved': false,
+        'reason': req.body.reason
     };
     request(options, function (error, response, body) {
         if (error) {

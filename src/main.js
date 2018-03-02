@@ -6,7 +6,9 @@ Vue.use(VueRouter)
 
 import VueResource from 'vue-resource';
 Vue.use(VueResource);
-
+import GridLoader from 'vue-spinner/src/GridLoader.vue';
+Vue.component('grid-loader', GridLoader)
+Vue.use(GridLoader);
 
 
 import vueCalendar from 'vue2-simple-calendar'
@@ -37,7 +39,7 @@ const routes = [
     {
         name: 'all_pto',
         path: '/',
-        component: AllPto, CreatePto, EditPto
+        component: AllPto
     },
     {
         name: 'create_pto',

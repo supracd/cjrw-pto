@@ -1,2 +1,2 @@
-.fade-enter-active,.fade-leave-active{transition-property:opacity;transition-duration:.25s}.fade-enter-active{transition-delay:.25s}.fade-enter,.fade-leave-active{opacity:0}
+@keyframes v-gridStretchDelay{0%{transform:scale(1)}50%{transform:scale(.5);-webkit-opacity:.7;opacity:.7}to{transform:scale(1);-webkit-opacity:1;opacity:1}}
 /*# sourceMappingURL=style.css.map*/
