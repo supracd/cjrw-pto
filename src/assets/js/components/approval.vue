@@ -29,8 +29,8 @@
                 <tr v-for="(pto, index) in ptos" v-on:remove="ptos.splice(index, 1)" v-bind:key="pto._id" v-bind:class="[pto.approved ? 'table-success' : '']">
 
                     <td>{{ pto.name }}</td>
-                    <td>{{ pto.date_start | moment("dddd, MMMM Do YYYY")}}</td>
-                    <td>{{ pto.date_end | moment("dddd, MMMM Do YYYY")}}</td>
+                    <td>{{ pto.date_start | moment("hh:mmA dddd, MMMM Do YYYY")}}</td>
+                    <td>{{ pto.date_end | moment("hh:mmA dddd, MMMM Do YYYY")}}</td>
                     <td>{{ pto.reason }}</td>
                     <td>
                         <router-link :to="{name: 'edit_pto', params: { id: pto._id }}" class="btn btn-primary">Edit</router-link>
@@ -65,9 +65,7 @@ export default {
     },
     computed: {
         ptos() {
-            return this.$store.state.ptos.sort(function(a, b){
-                return a.date_start < b.date_start;
-            });
+            return this.$store.getters.sortedPtos;
         },
         originalPtos() {
             return this.$store.state.originalPtos;

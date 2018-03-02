@@ -19,7 +19,6 @@ export default {
     name: 'pto-calendar',
     data() {
         return {
-            notifications: [],
             pageName: 'Calendar',
         }
     },

@@ -37,6 +37,15 @@ export default new Vuex.Store({
             commit('clearNotifications')
         }
     },
+    getters: {
+        sortedPtos: function(state){
+            return state.ptos.sort(function(a, b){
+                            return a.date_start < b.date_start;
+                        }).filter(function(pto){
+                            return new Date(pto.date_start) >= new Date();
+                        });
+        }
+    },
     mutations: {
         clearNotifications: function(state){
                 state.notifications = [];

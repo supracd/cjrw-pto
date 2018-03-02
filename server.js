@@ -176,7 +176,8 @@ app.patch('/api/pto/edit/:id', function(req, res) {
         'name': req.body.name,
         'date_start': req.body.date_start,
         'date_end': req.body.date_end,
-        'approved': false
+        'approved': false,
+        'reason': req.body.reason
     };
     options.url += '/' + req.params.id;
     request(options, function (error, response, body) {
@@ -195,7 +196,8 @@ app.patch('/api/pto/approve/:id', function(req, res) {
         'name': req.body.name,
         'date_start': req.body.date_start,
         'date_end': req.body.date_end,
-        'approved': true
+        'approved': true,
+        'reason': req.body.reason
     };
     options.url += '/' + req.params.id;
     request(options, function (error, response, body) {
@@ -214,7 +216,8 @@ app.patch('/api/pto/disapprove/:id', function(req, res) {
         'name': req.body.name,
         'date_start': req.body.date_start,
         'date_end': req.body.date_end,
-        'approved': false
+        'approved': false,
+        'reason': req.body.reason
     };
     options.url += '/' + req.params.id;
     request(options, function (error, response, body) {
