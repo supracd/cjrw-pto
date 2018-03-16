@@ -42,7 +42,9 @@ export default new Vuex.Store({
             return state.ptos.sort(function(a, b){
                             return a.date_start < b.date_start;
                         }).filter(function(pto){
-                            return new Date(pto.date_start) >= new Date();
+                            var d = new Date();
+                            d.setDate(d.getDate() - 1)
+                            return new Date(pto.date_start) >= d;
                         });
         }
     },
@@ -63,7 +65,7 @@ export default new Vuex.Store({
                     'Content-Type': 'application/json'
                 }
             }).then((response) => {}, (response) => {
-                state.notifications.push({type: 'danger', message: 'Pto could not be deleted'});
+                state.notifications.push({type: 'danger', message: 'PTO could not be deleted'});
 
             });
         },
@@ -73,7 +75,7 @@ export default new Vuex.Store({
                     'Content-Type': 'application/json'
                 }
             }).then((response) => {}, (response) => {
-                state.notifications.push({type: 'danger', message: 'Pto could not be approved'});
+                state.notifications.push({type: 'danger', message: 'PTO could not be approved'});
 
             });
         },
@@ -83,7 +85,7 @@ export default new Vuex.Store({
                     'Content-Type': 'application/json'
                 }
             }).then((response) => {}, (response) => {
-                state.notifications.push({type: 'danger', message: 'Pto could not be disapproved'});
+                state.notifications.push({type: 'danger', message: 'PTO could not be disapproved'});
 
             });
         },
@@ -149,7 +151,7 @@ export default new Vuex.Store({
             }, (response) => {
                 state.notifications.push({
                     type: 'error',
-                    message: 'Pto not updated'
+                    message: 'PTO not updated'
                 });
             });
 
