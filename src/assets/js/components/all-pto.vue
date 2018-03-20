@@ -65,19 +65,19 @@ export default {
     created: function() {
         this.$store.dispatch('clearNotifications');
         this.fetchPtoData();
-
     },
 
     methods: {
-        fetchPtoData: async function() {
+        fetchPtoData: function() {
             this.$store.dispatch('fetchPtoData');
         },
-        deletePto: async function(pto) {
+        deletePto: function(pto) {
             this.$store.dispatch('deletePto', pto);
             this.fetchPtoData();
         },
         searchPto: function() {
             this.$store.dispatch('searchPto', this.ptoSearch);
+
         }
     }
 }

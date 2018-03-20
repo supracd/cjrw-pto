@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 Vue.use(Vuex)
-export default new Vuex.Store({
+const store = new Vuex.Store({
     state: {
         ptos: [],
         originalPtos: [],
@@ -39,6 +39,7 @@ export default new Vuex.Store({
     },
     getters: {
         sortedPtos: function(state){
+
             return state.ptos.sort(function(a, b){
                             return a.date_start < b.date_start;
                         }).filter(function(pto){
@@ -46,6 +47,32 @@ export default new Vuex.Store({
                             d.setDate(d.getDate() - 1)
                             return new Date(pto.date_start) >= d;
                         });
+        },
+        ptosByName: function(state){
+
+            function getBusinessHours(pto){
+                var current = new Date(pto.date_start);
+                var end = new Date(pto.date_end);
+                var hours = 0;
+                while(current <= end){
+                    current.setTime(current.getTime() + 1000 * 3600);
+                    if(current.getHours() > 8 && current.getHours() < 17 && current.getDay() != 0 && current.getDay() != 6){
+                        hours += 1;
+                    }
+
+                }
+                return hours;
+            }
+            var ret = {};
+            state.ptos.forEach(function(pto){
+                if(!ret.hasOwnProperty(pto.name)){
+                    ret[pto.name] = [];
+                }
+                pto.totalHours = getBusinessHours(pto);
+                ret[pto.name].push(pto);
+            });
+
+            return ret;
         }
     },
     mutations: {
@@ -54,7 +81,23 @@ export default new Vuex.Store({
         },
         fetchPtoData: function(state) {
             Vue.http.get(`/api/pto/`).then((response) => {
-                state.ptos = response.body;
+                // for(var i = 0; i < response.body.length; i++){
+                //     var pto = response.body[i]
+                //     if(state.ptos.indexOf(pto) < 0){
+                //         state.ptos.push(pto);
+                //     }
+                // }
+                // for(var i = 0; i < state.ptos.length; i++){
+                //     var pto = state.ptos[i];
+                //     if(response.body.indexOf(pto) < 0){
+                //         state.ptos.splice(state.ptos.indexOf(pto), 1);
+                //     }
+                // }
+                state.ptos = [];
+                for(var i = 0; i < response.body.length; i++){
+                    state.ptos.push(response.body[i])
+                }
+            //    state.ptos = response.body;
                 state.originalPtos = state.ptos;
             }, (response) => {});
 
@@ -187,4 +230,8 @@ export default new Vuex.Store({
             });
         }
     }
-})
+});
+setInterval(() => {
+    store.commit('fetchPtoData');
+}, 10000)
+export default store;

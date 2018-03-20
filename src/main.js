@@ -33,6 +33,7 @@ const CreatePto = require('./assets/js/components/create-pto.vue');
 const EditPto = require('./assets/js/components/edit-pto.vue');
 const PtoCalendar = require('./assets/js/components/calendar.vue');
 const Approval = require('./assets/js/components/approval.vue');
+const Report = require('./assets/js/components/report.vue');
 
 
 const routes = [
@@ -60,6 +61,11 @@ const routes = [
         name: 'approval',
         path: '/approval',
         component: Approval,
+    },
+    {
+        name: 'report',
+        path: '/report',
+        component: Report,
     }
 ];
 

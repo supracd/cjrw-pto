@@ -22,6 +22,9 @@
           <li class="nav-item">
             <router-link :to="{ name: 'approval' }" class="nav-link">Approve Requests</router-link>
           </li>
+          <li class="nav-item">
+            <router-link :to="{ name: 'report' }" class="nav-link">Report</router-link>
+          </li>
         </ul>
 
       </div>
