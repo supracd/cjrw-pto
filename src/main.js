@@ -28,6 +28,7 @@ import App from './App.vue';
 Vue.use(App);
 
 
+
 const AllPto = require('./assets/js/components/all-pto.vue');
 const CreatePto = require('./assets/js/components/create-pto.vue');
 const EditPto = require('./assets/js/components/edit-pto.vue');

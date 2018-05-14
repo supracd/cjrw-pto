@@ -6,7 +6,8 @@ const store = new Vuex.Store({
         ptos: [],
         originalPtos: [],
         notifications: [],
-        events: []
+        events: [],
+        authenticated: false,
     },
     actions: {
         fetchPtoData ({ commit }) {
@@ -35,6 +36,9 @@ const store = new Vuex.Store({
         },
         clearNotifications ({ commit }) {
             commit('clearNotifications')
+        },
+        authenticate ({ commit }, password){
+            commit('authenticate', password)
         }
     },
     getters: {
@@ -81,23 +85,11 @@ const store = new Vuex.Store({
         },
         fetchPtoData: function(state) {
             Vue.http.get(`/api/pto/`).then((response) => {
-                // for(var i = 0; i < response.body.length; i++){
-                //     var pto = response.body[i]
-                //     if(state.ptos.indexOf(pto) < 0){
-                //         state.ptos.push(pto);
-                //     }
-                // }
-                // for(var i = 0; i < state.ptos.length; i++){
-                //     var pto = state.ptos[i];
-                //     if(response.body.indexOf(pto) < 0){
-                //         state.ptos.splice(state.ptos.indexOf(pto), 1);
-                //     }
-                // }
+
                 state.ptos = [];
                 for(var i = 0; i < response.body.length; i++){
                     state.ptos.push(response.body[i])
                 }
-            //    state.ptos = response.body;
                 state.originalPtos = state.ptos;
             }, (response) => {});
 
@@ -228,6 +220,13 @@ const store = new Vuex.Store({
                 message: 'PTO request not created'
               });
             });
+        },
+        authenticate: function(state, password){
+            if(password == 'password1'){
+                state.authenticated = true;
+            }else{
+                state.authenticated = false;
+            }
         }
     }
 });
