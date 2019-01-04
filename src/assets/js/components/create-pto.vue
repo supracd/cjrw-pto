@@ -16,13 +16,13 @@
         <div class="row">
           <div class="col">
             <label name="pto_date_start">Date Starting</label>
-            <date-picker   id="pto_date_start" format="MM-dd-yyyy HH:mm" type="datetime" lang="en"
+            <date-picker   id="pto_date_start" format="MM-dd-yyyy hh:mm A" type="datetime" lang="en"
               :time-picker-options="{start: '08:00',step: '01:00',end: '17:00'}" :shortcuts="shortcuts"
               v-model="pto.date_start" :first-day-of-week="1" ></date-picker>
           </div>
           <div class="col">
             <label name="pto_date_end">Date Ending</label>
-            <date-picker :not-before="pto.date_start"  id="pto_date_end" format="MM-dd-yyyy HH:mm" type="datetime" lang="en"
+            <date-picker :not-before="pto.date_start"  id="pto_date_end" format="MM-dd-yyyy hh:mm A" type="datetime" lang="en"
               :time-picker-options="{start: '08:00',step: '01:00',end: '17:00'}" :shortcuts="shortcuts"
               v-model="pto.date_end" :first-day-of-week="1" ></date-picker>
           </div>

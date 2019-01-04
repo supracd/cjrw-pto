@@ -6,10 +6,10 @@ var request = require("request");
 var https = require('https');
 var history = require('connect-history-api-fallback');
 var app = express();
+var PDFDocument = require('pdfkit');
 
 
-
-app.set('port', (process.env.PORT || 3000));
+app.set('port', (process.env.PORT || 8080));
 app.use('/', express.static(__dirname));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -102,17 +102,17 @@ app.get('/api/pto/calendar', function(req, res) {
         }
         var events = [];
         for(var i = 0; i < body.length; i++){
-                var cls = 'badge badge-pill';
+                var cls = '';
                 if(body[i].approved){
-                    cls += ' badge-success';
+                    cls += 'success';
                 }else{
-                    cls += ' badge-danger';
+                    cls += 'danger';
                 }
                 events.push({id: body[i]['_id'],
                              title: body[i]['name'],
-                             class: cls,
-                             start: new Date(body[i]['date_start']),
-                             end: new Date(body[i]['date_end'])
+                             cssClass: cls,
+                             start: new Date(body[i]['date_start'].split('T')[0]),
+                             end: new Date(body[i]['date_end'].split('T')[0])
                          })
         }
         res.json(events);
@@ -130,6 +130,19 @@ app.get('/api/pto/:id', function(req, res) {
         res.json(body);
     });
 });
+
+app.get('/api/report', function(req, res) {
+    doc = new PDFDocument
+    doc.pipe(fs.createWriteStream('report.pdf'))
+    doc.text('This is example text')
+    doc.moveDown()
+    doc.text('Line 2')
+    doc.end()
+    res.download('report.pdf')
+
+});
+
+
 
 app.post('/api/pto/create', function(req, res) {
     var options = JSON.parse(JSON.stringify(POST_PTO_OPTIONS));

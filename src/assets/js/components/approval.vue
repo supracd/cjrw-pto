@@ -4,8 +4,8 @@
 
         <h1>{{pageName}}</h1>
         <div v-if="!authenticated">
-            <input type="text" v-model="password"  />
-            <input type="button" class="btn" value="Login" v-on:click="authenticate()" />
+            <input type="password" v-model="password"  />
+            <input type="button" class="btn btn-primary" value="Login" v-on:click="authenticate()" />
         </div>
         <div v-if="authenticated">
             <div class="form-group">

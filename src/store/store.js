@@ -28,6 +28,7 @@ const store = new Vuex.Store({
         searchPto ({ commit }, ptoSearch) {
             commit('searchPto', ptoSearch)
         },
+
         editPto ({ commit }, ptos) {
             commit('editPto', ptos)
         },
@@ -52,28 +53,52 @@ const store = new Vuex.Store({
                             return new Date(pto.date_start) >= d;
                         });
         },
+        filteredPtos: function(state, dateFrom, dateTo){
+            return dateFrom, dateTo => {
+                var ret = {};
+                for (var name in state.ptosByName){
+                    ret[name] = state.ptos[name].filter(
+                        pto =>
+                        new Date(pto['date']) >= new Date(dateFrom) &&
+                        new Date(pto['date']) <= new Date(dateTo)
+                    )
+                }
+                return ret;
+            }
+
+
+        },
         ptosByName: function(state){
 
             function getBusinessHours(pto){
                 var current = new Date(pto.date_start);
                 var end = new Date(pto.date_end);
-                var hours = 0;
+                var days = {};
                 while(current <= end){
                     current.setTime(current.getTime() + 1000 * 3600);
                     if(current.getHours() > 8 && current.getHours() < 17 && current.getDay() != 0 && current.getDay() != 6){
-                        hours += 1;
+                        var ds = current.toISOString().split('T')[0];
+                        if(ds in days){
+                            days[ds] += 1;
+                        }else{
+                            days[ds] = 1;
+                        }
+
                     }
 
                 }
-                return hours;
+                return days;
             }
-            var ret = {};
+            const ret = {};
             state.ptos.forEach(function(pto){
                 if(!ret.hasOwnProperty(pto.name)){
                     ret[pto.name] = [];
                 }
                 pto.totalHours = getBusinessHours(pto);
-                ret[pto.name].push(pto);
+                for(var date in pto.totalHours){
+                    ret[pto.name].push({'date': date, 'hours': pto.totalHours[date]});
+                }
+
             });
 
             return ret;
@@ -153,6 +178,7 @@ const store = new Vuex.Store({
 
             state.ptos = searchedPtos;
         },
+
         editPto: function(state, ptos) {
             let pto = ptos.pto;
             let prevPto = ptos.prevPto;
@@ -230,7 +256,7 @@ const store = new Vuex.Store({
         }
     }
 });
-setInterval(() => {
-    store.commit('fetchPtoData');
-}, 10000)
+// setInterval(() => {
+//     store.commit('fetchPtoData');
+// }, 10000)
 export default store;

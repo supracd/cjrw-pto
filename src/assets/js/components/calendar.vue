@@ -5,7 +5,7 @@
 <div id="pto-calendar">
     <notification v-bind:notifications="notifications"></notification>
 
-    <vue-calendar :first-day="1" :show-limit="10" :events="events" @eventClicked="eventClicked"></vue-calendar>
+    <vue-calendar :first-day="1" :events="events" @eventClicked="eventClicked"></vue-calendar>
 
 </div>
 
@@ -41,7 +41,8 @@ export default {
             this.$store.dispatch('fetchCalendar');
 
         },
-        eventClicked: function(event) {
+        eventClicked: function(event, jsEvent, pos) {
+            console.log(event);
             this.$router.push({
                 name: 'edit_pto',
                 params: {

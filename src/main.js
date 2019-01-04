@@ -12,9 +12,9 @@ Vue.use(GridLoader);
 
 
 import vueCalendar from 'vue2-simple-calendar'
-
-Vue.component('vue-calendar', vueCalendar);
-Vue.use(vueCalendar);
+import fullCalendar from 'vue-fullcalendar'
+Vue.component('vue-calendar', fullCalendar);
+Vue.use(fullCalendar);
 
 Vue.use(require('vue-moment'));
 import DatePicker from 'vue2-datepicker'

@@ -291,3 +291,25 @@ padding: 0 0 0 4px; *//* height: 18px; *//* line-height: 18px; *//* white-space:
 nowrap; *//* overflow: hidden; *//* text-overflow: ellipsis; *//* background-color:
 #d4dcec; *//* margin-left: 4px; */
 }
+
+.pto.list-group-item{
+    border: none;
+    display: flex;
+    justify-content: space-between;
+}
+.hour-row{
+
+}
+.pto.pto-name, .pto.pto-start, .pto.pto-hours{
+    font-size: 1.5em;
+
+}
+.pto.pto-name{
+    width: 50%;
+}
+.pto.pto-start{
+    width: 25%;
+}
+.pto.pto-hours{
+    width: 25%;
+}
